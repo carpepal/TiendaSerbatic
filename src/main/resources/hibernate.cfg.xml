@@ -11,15 +11,15 @@
     <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
     <property name="hibernate.show_sql">true</property>
 
-    <mapping class="com.example.tiendacarlos.modelos.configuracion.ConfigVo"/>
-    <mapping class="com.example.tiendacarlos.modelos.productos.ProductoVO"/>
-    <mapping class="com.example.tiendacarlos.modelos.usuarios.UsuarioVO"/>
-    <mapping class="com.example.tiendacarlos.modelos.menu.OpcionesMenuVO"/>
-    <mapping class="com.example.tiendacarlos.modelos.rol.RolVO"/>
-    <mapping class="com.example.tiendacarlos.modelos.pedido.PedidoVO"/>
-    <mapping class="com.example.tiendacarlos.modelos.detalle_pedido.DetallesPedidosVO"/>
-    <mapping class="com.example.tiendacarlos.modelos.categoria.CategoriaVO"/>
-    <mapping class="com.example.tiendacarlos.modelos.descuento.DescuentoVO"/>
+    <mapping class="com.example.tiendacarlos.models.configuracion.ConfigVo"/>
+    <mapping class="com.example.tiendacarlos.models.productos.ProductoVO"/>
+    <mapping class="com.example.tiendacarlos.models.usuarios.UsuarioVO"/>
+    <mapping class="com.example.tiendacarlos.models.menu.OpcionesMenuVO"/>
+    <mapping class="com.example.tiendacarlos.models.rol.RolVO"/>
+    <mapping class="com.example.tiendacarlos.models.pedido.PedidoVO"/>
+    <mapping class="com.example.tiendacarlos.models.detalle_pedido.DetallesPedidosVO"/>
+    <mapping class="com.example.tiendacarlos.models.categoria.CategoriaVO"/>
+    <mapping class="com.example.tiendacarlos.models.descuento.DescuentoVO"/>
 
 
 

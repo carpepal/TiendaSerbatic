@@ -1,7 +1,7 @@
-package com.example.tiendacarlos.modelos.usuarios;
+package com.example.tiendacarlos.models.usuarios;
 
 
-import com.example.tiendacarlos.modelos.rol.RolVO;
+import com.example.tiendacarlos.models.rol.RolVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,7 @@ public class UsuarioVO {
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	private int id;
 
+	@JoinColumn(name = "id_rol")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private RolVO rol = new RolVO(2 , "user");
 	private String email;

@@ -1,11 +1,10 @@
-package com.example.tiendacarlos.modelos.productos;
+package com.example.tiendacarlos.models.productos;
 
 
 import com.example.tiendacarlos.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProductoDAO {

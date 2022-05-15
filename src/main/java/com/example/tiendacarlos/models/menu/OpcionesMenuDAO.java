@@ -1,4 +1,4 @@
-package com.example.tiendacarlos.modelos.menu;
+package com.example.tiendacarlos.models.menu;
 
 
 import com.example.tiendacarlos.util.HibernateUtil;

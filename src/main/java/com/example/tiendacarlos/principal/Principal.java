@@ -1,18 +1,16 @@
 package com.example.tiendacarlos.principal;
 
-import com.example.tiendacarlos.modelos.productos.ProductoDAO;
-import com.example.tiendacarlos.modelos.productos.ProductoVO;
-import com.example.tiendacarlos.modelos.usuarios.UsuarioDAO;
-import com.example.tiendacarlos.modelos.usuarios.UsuarioVO;
+import com.example.tiendacarlos.models.productos.ProductoDAO;
+import com.example.tiendacarlos.models.productos.ProductoVO;
+import com.example.tiendacarlos.models.usuarios.UsuarioDAO;
+import com.example.tiendacarlos.models.usuarios.UsuarioVO;
+import com.example.tiendacarlos.services.CartServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.http.HttpRequest;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,61 +27,91 @@ public class Principal{
         return ruta;
     }
 
+    @GetMapping("/login")
+    public String login(HttpServletRequest request , HttpSession session , Model model ){
+        if(session.getAttribute("usuario") != null){
+            return "redirect:".concat(request.getHeader("referer"));
+        }
+        model.addAttribute("usuario", new UsuarioVO());
+        return "login";
+    }
     @PostMapping("/login")
-    public String login(@RequestParam(required = false) String email, @RequestParam(required = false) String password , Model model){
-        if(email == null || password == null || email.isEmpty() || password.isEmpty()){
+    public String login(UsuarioVO usuario,  Model model , HttpSession session){
+
+        if(usuario.getEmail() == null || usuario.getPassword()== null || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty()){
             return "login";
         }
-
-        UsuarioVO usuario = UsuarioDAO.login(email, password);
-        if(usuario != null){
+        UsuarioVO result = UsuarioDAO.login(usuario.getEmail(), usuario.getPassword());
+        if(result != null){
             //add user to session
-            model.addAttribute("usuario", usuario);
-            return "index";
+            session.setAttribute("usuario", result);
+            return "redirect:/";
         }
 
         return "login";
     }
 
+    @GetMapping("/registro")
+    public String registro(Model model , HttpSession session , HttpServletRequest request){
+        if(session.getAttribute("usuario") != null){
+            return "redirect:".concat(request.getHeader("referer"));
+        }
+        model.addAttribute("usuario", new UsuarioVO());
+        return "registro";
+    }
     @PostMapping(value = "/registro" , consumes = "application/x-www-form-urlencoded")
-    public String registro(@RequestParam(required = false)HashMap<String, String> datos, Model model){
-        if(datos == null){
+    public String registro(UsuarioVO usuario , Model model , HttpSession session){
+        model.addAttribute("usuario", new UsuarioVO());
+        if(usuario == null){
             return "registro";
         }
+        if(usuario.getEmail() == null || usuario.getPassword()== null || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty()){
+            return "registro";
+        }
+        UsuarioVO result = UsuarioDAO.register(usuario);
+        if(result != null){
+           session.setAttribute("usuario", result);
+        }
+        return "redirect:/";
+    }
 
-
-        return null;
+    @GetMapping("/Carrito")
+    public String carrito(Model model){
+        return "carrito";
     }
 
     @GetMapping("/Carrito/{id}")
-    public String carrito(@PathVariable(required = true)String id, @RequestParam(required = true)String action, Model model , HttpSession session){
+    public String carrito(@PathVariable(required = true)String id, @RequestParam(required = true)String action, Model model , HttpSession session , HttpServletRequest request){
         if(session.getAttribute("carrito" ) == null){
             session.setAttribute("carrito", new HashMap<Integer , ProductoVO>());
         }
         if(action.equals("sumar")){
-            //add to cart
-            HashMap<Integer, ProductoVO> carrito = (HashMap<Integer, ProductoVO>) session.getAttribute("carrito");
-            if(carrito.containsKey(Integer.parseInt(id))){
-                carrito.get(Integer.parseInt(id)).setCantidad(carrito.get(Integer.parseInt(id)).getCantidad() + 1);
-            }else{
-                carrito.put(Integer.parseInt(id), ProductoDAO.getProductoById(Integer.parseInt(id)));
-            }
+
+            CartServices.addProductToCart(id, session);
         }
         if(action.equals("restar")){
-            //remove from cart
-            HashMap<Integer, ProductoVO> carrito = (HashMap<Integer, ProductoVO>) session.getAttribute("carrito");
-            if(carrito.containsKey(Integer.parseInt(id))){
-                carrito.get(Integer.parseInt(id)).setCantidad(carrito.get(Integer.parseInt(id)).getCantidad() - 1);
-                if(carrito.get(Integer.parseInt(id)).getCantidad() == 0){
-                    carrito.remove(Integer.parseInt(id));
-                }
-            }
+            CartServices.removeProductFromCart(id, session);
         }
         if(action.equals("borrar")) {
             //delete from cart
-            HashMap<Integer, ProductoVO> carrito = (HashMap<Integer, ProductoVO>) session.getAttribute("carrito");
-            carrito.remove(Integer.parseInt(id));
+            CartServices.deleteProductFromCart(id ,session);
+
         }
-        return "index";
+        String ruta = request.getHeader("referer");
+        System.out.println(ruta);
+        return "redirect:"+ruta;
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("usuario");
+        return "redirect:/";
+    }
+
+    @GetMapping("/producto/{id}")
+    public String producto(@PathVariable(required = true)String id, Model model){
+        ProductoVO producto = ProductoDAO.getProductoById(Integer.parseInt(id));
+        model.addAttribute("producto", producto);
+        return "producto";
     }
 }

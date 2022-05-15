@@ -1,7 +1,7 @@
-package com.example.tiendacarlos.modelos.pedido;
+package com.example.tiendacarlos.models.pedido;
 
 
-import com.example.tiendacarlos.modelos.usuarios.UsuarioVO;
+import com.example.tiendacarlos.models.usuarios.UsuarioVO;
 import com.example.tiendacarlos.util.HibernateUtil;
 import org.hibernate.Session;
 

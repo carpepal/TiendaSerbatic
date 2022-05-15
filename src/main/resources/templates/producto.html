@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${producto.nombre}"></title>
+    <link th:replace="components/imports">
+</head>
+<body class="vh-100">
+<div th:replace="components/navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 th:text="${producto.nombre}"></h1>
+            <img th:src="${producto.imagen}" th:alt="${producto.nombre}">
+
+            <p th:text="${producto.descripcion}">descripcion</p>
+            <p th:text="${producto.precio}">descripcion</p>
+            <p th:text="${producto.stock}">descripcion</p>
+            <div class="d-flex flex-row mb-2 justify-content-center">
+                <a class="btn btn-primary"
+                   th:href="@{|/Carrito/${producto.id}?action=sumar|}">+</a>
+
+                <div class="p-2 flex align-items-center"
+                     th:text="${(session?.carrito?.get(producto?.id)?.cantidad == null)?0:session.carrito.get(producto.id).cantidad}">
+
+                </div>
+
+                <a class="btn btn-primary"
+                   th:href="@{|/Carrito/${producto.id}?action=restar|}">-</a>
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-danger"
+                   th:href="@{|/Carrito/${producto.id}?action=borrar|}">borrar
+                    del carrito</a>
+            </div>
+        </div>
+    </div>
+<div th:replace="components/footer"></div>
+</body>
+</html>

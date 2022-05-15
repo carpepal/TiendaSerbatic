@@ -1,4 +1,4 @@
-package com.example.tiendacarlos.modelos.productos;
+package com.example.tiendacarlos.models.productos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

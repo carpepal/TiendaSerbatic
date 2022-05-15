@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="ISO-8859-1">
+    <title>Registro</title>
+    <link th:replace="components/imports">
 </head>
-<body>
+<body class="vh-100">
+<div th:replace="components/navbar"></div>
+<div class="d-flex flex-column justify-content-center align-items-center ">
+    <form th:action="@{/registro}" th:method="post" th:Object="${usuario}" class="d-flex flex-column justify-content-center align-items-center mt-5 h-75">
+        <h1>register</h1>
+        <div class="input-group mb-4">
+            <span class="input-group-text">email *</span>
+            <input type="text" th:field="*{email}"  name="email" id="email" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">password *</span>
+            <input type="password" th:field="*{password}" name="clave" id="clave" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">nombre</span>
+            <input type="text" th:field="*{nombre}" name="nombre" id="nombre" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">apellido 1 y 2</span>
+            <input type="text" th:field="*{apellido1}" name="apellido1" id="apellido1" class="form-control">
+            <input type="text" th:field="*{apellido2}" name="apellido2" id="apellido2" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">direccion</span>
+            <input type="text" th:field="*{direccion}" name="direccion" id="direccion" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">provincia</span>
+            <input type="text" th:field="*{provincia}" name="provincia" id="provincia" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">localidad</span>
+            <input type="text" th:field="*{localidad}" name="localidad" id="localidad" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">telefono</span>
+            <input type="text" th:field="*{telefono}" name="telefono" id="telefono" class="form-control">
+        </div>
+        <div class="input-group mb-4">
+            <span class="input-group-text">dni</span>
+            <input type="text" th:field="*{dni}" name="dni" id="dni" class="form-control">
+        </div>
+        <p>no te has logeado , logeate <a th:href="@{/registro}">aqui</a></p>
+        <input type="submit" value="registro" class="btn btn-dark text-white">
+    </form>
+</div>
+<div th:replace="components/footer"></div>
 
 </body>
 </html>

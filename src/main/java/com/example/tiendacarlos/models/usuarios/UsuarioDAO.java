@@ -1,4 +1,4 @@
-package com.example.tiendacarlos.modelos.usuarios;
+package com.example.tiendacarlos.models.usuarios;
 
 
 import com.example.tiendacarlos.util.HibernateUtil;
@@ -45,4 +45,6 @@ public class UsuarioDAO {
            return null;
        }
     }
+
+
 }

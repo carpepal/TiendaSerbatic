@@ -4,17 +4,29 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExample03">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarsExample03">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Carrito">carrito</a>
+                <a class="nav-link" href="/Carrito">carrito</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Pedidos">pedidos</a>
+                <a class="nav-link" href="/Pedidos">pedidos</a>
             </li>
         </ul>
+        <div th:unless="${session.usuario !=  null}">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+                <li class="nav-item"><a th:href="@{/registro}" class="nav-link">Registro</a></li>
+            </ul>
+        </div>
+        <div th:if="${session.usuario!= null}">
+            <ul>
+                <li><img th:src="@{'/Usuarios/img/user-'+${session.usuario.id}+'.png'}"/></li>
+                <li><a th:href="@{/logout}" class="nav-link">Logout</a></li>
+            </ul>
+        </div>
     </div>
 </nav>

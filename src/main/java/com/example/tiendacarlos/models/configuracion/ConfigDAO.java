@@ -1,4 +1,4 @@
-package com.example.tiendacarlos.modelos.configuracion;
+package com.example.tiendacarlos.models.configuracion;
 
 import com.example.tiendacarlos.util.HibernateUtil;
 import org.hibernate.Session;

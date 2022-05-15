@@ -1,8 +1,7 @@
-package com.example.tiendacarlos.modelos.pedido;
+package com.example.tiendacarlos.models.pedido;
 
 
-import com.example.tiendacarlos.modelos.detalle_pedido.DetallesPedidosVO;
-import com.example.tiendacarlos.modelos.usuarios.UsuarioVO;
+import com.example.tiendacarlos.models.usuarios.UsuarioVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

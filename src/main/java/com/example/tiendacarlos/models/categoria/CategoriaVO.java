@@ -1,4 +1,4 @@
-package com.example.tiendacarlos.modelos.rol;
+package com.example.tiendacarlos.models.categoria;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +13,12 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "rol")
-@Table(name = "roles")
-public class RolVO  implements Serializable {
-
-    @Id @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+@Entity(name = "categorias")
+@Table(name = "categorias")
+public class CategoriaVO implements Serializable {
+    @Id@GeneratedValue(strategy= javax.persistence.GenerationType.IDENTITY)
     private int id;
-    private String rol;
+
+    private String nombre;
+    private String descripcion;
 }

@@ -1,7 +1,7 @@
-package com.example.tiendacarlos.modelos.menu;
+package com.example.tiendacarlos.models.menu;
 
 
-import com.example.tiendacarlos.modelos.rol.RolVO;
+import com.example.tiendacarlos.models.rol.RolVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
