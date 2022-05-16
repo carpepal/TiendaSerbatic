@@ -1,11 +1,11 @@
 package com.example.tiendacarlos.principal;
 
-import com.example.tiendacarlos.models.productos.ProductoDAO;
-import com.example.tiendacarlos.models.productos.ProductoService;
+import com.example.tiendacarlos.services.sql.clases.ProductoService;
 import com.example.tiendacarlos.models.productos.ProductoVO;
 import com.example.tiendacarlos.models.usuarios.UsuarioDAO;
 import com.example.tiendacarlos.models.usuarios.UsuarioVO;
 import com.example.tiendacarlos.services.CartServices;
+import com.example.tiendacarlos.services.sql.clases.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,14 +23,16 @@ public class Principal{
     @Autowired
     private ProductoService productoService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping("/")
     public String index(Model model , HttpSession session){
         String ruta = "index";
 //        ArrayList<ProductoVO> list = ProductoDAO.getProductos();
         ArrayList<ProductoVO> list = productoService.findAll();
         model.addAttribute("list", list);
-        System.out.println(productoService.findById(1));
-        System.out.println(productoService.findByName("PS5"));
+        System.out.println(usuarioService.findByRol(3));
         return ruta;
     }
 
@@ -117,7 +119,7 @@ public class Principal{
 
     @GetMapping("/producto/{id}")
     public String producto(@PathVariable(required = true)String id, Model model){
-        ProductoVO producto = ProductoDAO.getProductoById(Integer.parseInt(id));
+        ProductoVO producto = productoService.findById(Integer.parseInt(id));
         model.addAttribute("producto", producto);
         return "producto";
     }

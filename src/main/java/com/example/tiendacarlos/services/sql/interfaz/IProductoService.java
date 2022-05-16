@@ -1,4 +1,6 @@
-package com.example.tiendacarlos.models.productos;
+package com.example.tiendacarlos.services.sql.interfaz;
+
+import com.example.tiendacarlos.models.productos.ProductoVO;
 
 public interface IProductoService {
 

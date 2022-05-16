@@ -1,6 +1,9 @@
-package com.example.tiendacarlos.models.productos;
+package com.example.tiendacarlos.services.sql.clases;
 
 
+import com.example.tiendacarlos.models.productos.ProductoVO;
+import com.example.tiendacarlos.services.sql.interfaz.IProductoService;
+import com.example.tiendacarlos.services.sql.interfaz.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,7 @@ public class ProductoService implements IProductoService {
     @Override
     public ProductoVO findById(int id) {
 
-        return productoRepository.findById(id).get();
+        return productoRepository.findById(id).isPresent() ? productoRepository.findById(id).get() : null;
     }
 
     @Override
