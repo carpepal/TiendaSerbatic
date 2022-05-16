@@ -1,8 +1,8 @@
 package com.example.tiendacarlos.principal;
 
+import com.example.tiendacarlos.services.sql.clases.PedidoService;
 import com.example.tiendacarlos.services.sql.clases.ProductoService;
 import com.example.tiendacarlos.models.productos.ProductoVO;
-import com.example.tiendacarlos.models.usuarios.UsuarioDAO;
 import com.example.tiendacarlos.models.usuarios.UsuarioVO;
 import com.example.tiendacarlos.services.CartServices;
 import com.example.tiendacarlos.services.sql.clases.UsuarioService;
@@ -25,14 +25,15 @@ public class Principal{
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private PedidoService pedidoService;
 
     @GetMapping("/")
     public String index(Model model , HttpSession session){
         String ruta = "index";
-//        ArrayList<ProductoVO> list = ProductoDAO.getProductos();
         ArrayList<ProductoVO> list = productoService.findAll();
         model.addAttribute("list", list);
-        System.out.println(usuarioService.findByRol(3));
+        System.out.println(pedidoService.findByCliente(5));
         return ruta;
     }
 
@@ -50,10 +51,15 @@ public class Principal{
         if(usuario.getEmail() == null || usuario.getPassword()== null || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty()){
             return "login";
         }
-        UsuarioVO result = UsuarioDAO.login(usuario.getEmail(), usuario.getPassword());
+        UsuarioVO result = usuarioService.login(usuario);
         if(result != null){
             //add user to session
             session.setAttribute("usuario", result);
+            if(session.getAttribute("from") != null){
+                String from = (String) session.getAttribute("from");
+                session.removeAttribute("from");
+                return "redirect:".concat(from);
+            }
             return "redirect:/";
         }
 
@@ -77,38 +83,11 @@ public class Principal{
         if(usuario.getEmail() == null || usuario.getPassword()== null || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty()){
             return "registro";
         }
-        UsuarioVO result = UsuarioDAO.register(usuario);
+        UsuarioVO result = usuarioService.registrar(usuario);
         if(result != null){
            session.setAttribute("usuario", result);
         }
         return "redirect:/";
-    }
-
-    @GetMapping("/Carrito")
-    public String carrito(Model model){
-        return "carrito";
-    }
-
-    @GetMapping("/Carrito/{id}")
-    public String carrito(@PathVariable(required = true)String id, @RequestParam(required = true)String action, Model model , HttpSession session , HttpServletRequest request){
-        if(session.getAttribute("carrito" ) == null){
-            session.setAttribute("carrito", new HashMap<Integer , ProductoVO>());
-        }
-        if(action.equals("sumar")){
-
-            CartServices.addProductToCart(id, session);
-        }
-        if(action.equals("restar")){
-            CartServices.removeProductFromCart(id, session);
-        }
-        if(action.equals("borrar")) {
-            //delete from cart
-            CartServices.deleteProductFromCart(id ,session);
-
-        }
-        String ruta = request.getHeader("referer");
-        System.out.println(ruta);
-        return "redirect:"+ruta;
     }
 
     @GetMapping("/logout")

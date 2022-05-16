@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
-@RequestMapping("/carrito")
+@RequestMapping("/Carrito")
 @Controller
 public class CarritoRoute {
+
+    private CartServices cart;
 
     @GetMapping("/")
     public String carrito(Model model){
@@ -29,14 +31,14 @@ public class CarritoRoute {
         }
         if(action.equals("sumar")){
 
-            CartServices.addProductToCart(id, session);
+            cart.addProductToCart(id, session);
         }
         if(action.equals("restar")){
-            CartServices.removeProductFromCart(id, session);
+           cart.removeProductFromCart(id, session);
         }
         if(action.equals("borrar")) {
             //delete from cart
-            CartServices.deleteProductFromCart(id ,session);
+            cart.deleteProductFromCart(id ,session);
 
         }
         String ruta = request.getHeader("referer");
@@ -45,8 +47,15 @@ public class CarritoRoute {
     }
 
     @GetMapping("/comprar")
-    public String comprar(Model model){
-
+    public String comprar(Model model , HttpSession session){
+        if(session.getAttribute("usuario") == null){
+            session.setAttribute("from" , "/carrito/comprar");
+            return "redirect:/login";
+        }
+        if(session.getAttribute("carrito") == null){
+            return "redirect:/";
+        }
+        cart.buyProducts(session);
         return "comprar";
     }
 }

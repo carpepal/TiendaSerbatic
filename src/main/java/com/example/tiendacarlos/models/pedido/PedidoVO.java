@@ -5,6 +5,8 @@ import com.example.tiendacarlos.models.usuarios.UsuarioVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,11 +18,14 @@ import java.sql.Timestamp;
 @Table(name = "pedidos")
 public class PedidoVO {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne(cascade = CascadeType.ALL )
+    @JoinColumn(name = "id_usuario" , insertable = false , updatable = false , nullable = true)
     private UsuarioVO usuario;
 
     private Timestamp fecha;
