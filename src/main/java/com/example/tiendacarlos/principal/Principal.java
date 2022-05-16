@@ -1,10 +1,12 @@
 package com.example.tiendacarlos.principal;
 
 import com.example.tiendacarlos.models.productos.ProductoDAO;
+import com.example.tiendacarlos.models.productos.ProductoService;
 import com.example.tiendacarlos.models.productos.ProductoVO;
 import com.example.tiendacarlos.models.usuarios.UsuarioDAO;
 import com.example.tiendacarlos.models.usuarios.UsuarioVO;
 import com.example.tiendacarlos.services.CartServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +20,17 @@ import java.util.HashMap;
 @Controller
 public class Principal{
 
+    @Autowired
+    private ProductoService productoService;
+
     @GetMapping("/")
     public String index(Model model , HttpSession session){
         String ruta = "index";
-            ArrayList<ProductoVO> list = ProductoDAO.getProductos();
-            model.addAttribute("list", list);
-
+//        ArrayList<ProductoVO> list = ProductoDAO.getProductos();
+        ArrayList<ProductoVO> list = productoService.findAll();
+        model.addAttribute("list", list);
+        System.out.println(productoService.findById(1));
+        System.out.println(productoService.findByName("PS5"));
         return ruta;
     }
 

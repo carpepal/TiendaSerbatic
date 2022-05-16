@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
-@RequestMapping("/Carrito")
+@RequestMapping("/carrito")
 @Controller
 public class CarritoRoute {
 
@@ -46,6 +46,7 @@ public class CarritoRoute {
 
     @GetMapping("/comprar")
     public String comprar(Model model){
+
         return "comprar";
     }
 }
