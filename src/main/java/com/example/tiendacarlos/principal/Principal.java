@@ -104,6 +104,8 @@ public class Principal{
         return "producto";
     }
 
+
+
     @PostConstruct
     public void init() {
 

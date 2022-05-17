@@ -20,12 +20,12 @@ import java.util.HashMap;
 public class CartServices {
 
     @Autowired
-    public PedidoService pedidoService;
+    private ProductoService productoService;
 
     @Autowired
-    public ProductoService productoService;
+    private PedidoService pedidoService;
 
-    public void addProductToCart(String id  , HttpSession session) {
+    public void addProductToCart(String id  , HttpSession session ) {
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
         if(carrito.containsKey(Integer.parseInt(id))){
             if(carrito.get(Integer.parseInt(id)).getCantidad() < carrito.get(Integer.parseInt(id)).getStock())
@@ -37,7 +37,7 @@ public class CartServices {
         }
     }
 
-    public void removeProductFromCart(String id , HttpSession session) {
+    public void removeProductFromCart(String id , HttpSession session ) {
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
         if(carrito.containsKey(Integer.parseInt(id))){
             carrito.get(Integer.parseInt(id)).setCantidad(carrito.get(Integer.parseInt(id)).getCantidad() - 1);
@@ -57,7 +57,7 @@ public class CartServices {
         carrito.clear();
     }
 
-    public void buyProducts(HttpSession session) {
+    public void buyProducts(HttpSession session ) {
         Pedidos pedido = new Pedidos(0 , (Usuarios) session.getAttribute("usuario") ,"tarjeta","Pendiente" , "1" , 100);
         Collection<DetallesPedido> detalles = pedido.getDetallesPedidosById();
         for(Productos producto :( (HashMap<Integer, Productos>) session.getAttribute("carrito")).values()) {

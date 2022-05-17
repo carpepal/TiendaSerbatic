@@ -3,6 +3,9 @@ package com.example.tiendacarlos.principal.routes;
 
 import com.example.tiendacarlos.entities.Productos;
 import com.example.tiendacarlos.services.CartServices;
+import com.example.tiendacarlos.services.sql.clases.PedidoService;
+import com.example.tiendacarlos.services.sql.clases.ProductoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +21,15 @@ import java.util.HashMap;
 @Controller
 public class CarritoRoute {
 
+    @Autowired
+    private ProductoService productoService;
+    @Autowired
+    private PedidoService pedidoService;
+
+    @Autowired
     private CartServices cart = new CartServices();
 
-    @GetMapping("/")
+    @GetMapping("")
     public String carrito(Model model){
         return "carrito";
     }
@@ -32,7 +41,7 @@ public class CarritoRoute {
         }
         if(action.equals("sumar")){
 
-            cart.addProductToCart(id, session);
+            cart.addProductToCart(id, session , productoService);
         }
         if(action.equals("restar")){
            cart.removeProductFromCart(id, session);
@@ -56,7 +65,7 @@ public class CarritoRoute {
         if(session.getAttribute("carrito") == null){
             return "redirect:/";
         }
-        cart.buyProducts(session);
+        cart.buyProducts(session , pedidoService , productoService);
         return "comprar";
     }
 }
