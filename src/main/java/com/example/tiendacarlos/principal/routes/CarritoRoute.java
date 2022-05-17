@@ -1,6 +1,7 @@
 package com.example.tiendacarlos.principal.routes;
 
-import com.example.tiendacarlos.models.productos.ProductoVO;
+
+import com.example.tiendacarlos.entities.Productos;
 import com.example.tiendacarlos.services.CartServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 @Controller
 public class CarritoRoute {
 
-    private CartServices cart;
+    private CartServices cart = new CartServices();
 
     @GetMapping("/")
     public String carrito(Model model){
@@ -27,7 +28,7 @@ public class CarritoRoute {
     @GetMapping("/{id}")
     public String carrito(@PathVariable(required = true)String id, @RequestParam(required = true)String action, Model model , HttpSession session , HttpServletRequest request){
         if(session.getAttribute("carrito" ) == null){
-            session.setAttribute("carrito", new HashMap<Integer , ProductoVO>());
+            session.setAttribute("carrito", new HashMap<Integer , Productos>());
         }
         if(action.equals("sumar")){
 

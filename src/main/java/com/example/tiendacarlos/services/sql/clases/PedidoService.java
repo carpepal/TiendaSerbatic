@@ -1,6 +1,6 @@
 package com.example.tiendacarlos.services.sql.clases;
 
-import com.example.tiendacarlos.models.pedido.PedidoVO;
+import com.example.tiendacarlos.entities.Pedidos;
 import com.example.tiendacarlos.services.sql.interfaz.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,15 +10,15 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public PedidoVO findById(int id){
+    public Pedidos findById(int id){
         return pedidoRepository.findById(id).get();
     }
 
-    public void save(PedidoVO pedido){
+    public void save(Pedidos pedido){
         pedidoRepository.save(pedido);
     }
 
-    public void delete(PedidoVO pedido){
+    public void delete(Pedidos pedido){
         pedidoRepository.delete(pedido);
     }
 
@@ -26,11 +26,11 @@ public class PedidoService {
         pedidoRepository.deleteAll();
     }
 
-    public Iterable<PedidoVO> findAll(){
+    public Iterable<Pedidos> findAll(){
         return pedidoRepository.findAll();
     }
 
-    public Iterable<PedidoVO> findByCliente(int id){
-        return pedidoRepository.findAllPedidosByUsuario(id);
-    }
+//    public Iterable<Pedidos> findByCliente(int id){
+//        return pedidoRepository.findAllPedidosByUsuario(id);
+//    }
 }

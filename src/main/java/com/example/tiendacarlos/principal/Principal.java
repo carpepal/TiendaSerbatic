@@ -1,16 +1,16 @@
 package com.example.tiendacarlos.principal;
 
+import com.example.tiendacarlos.entities.Productos;
+import com.example.tiendacarlos.entities.Usuarios;
 import com.example.tiendacarlos.services.sql.clases.PedidoService;
 import com.example.tiendacarlos.services.sql.clases.ProductoService;
-import com.example.tiendacarlos.models.productos.ProductoVO;
-import com.example.tiendacarlos.models.usuarios.UsuarioVO;
-import com.example.tiendacarlos.services.CartServices;
 import com.example.tiendacarlos.services.sql.clases.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -31,9 +31,10 @@ public class Principal{
     @GetMapping("/")
     public String index(Model model , HttpSession session){
         String ruta = "index";
-        ArrayList<ProductoVO> list = productoService.findAll();
+        ArrayList<Productos> list = productoService.findAll();
         model.addAttribute("list", list);
-        System.out.println(pedidoService.findByCliente(5));
+//        System.out.println(pedidoService.findByCliente(5));
+        System.out.println(pedidoService.findAll());
         return ruta;
     }
 
@@ -42,16 +43,16 @@ public class Principal{
         if(session.getAttribute("usuario") != null){
             return "redirect:".concat(request.getHeader("referer"));
         }
-        model.addAttribute("usuario", new UsuarioVO());
+        model.addAttribute("usuario", new Usuarios());
         return "login";
     }
     @PostMapping("/login")
-    public String login(UsuarioVO usuario,  Model model , HttpSession session){
+    public String login(Usuarios usuario,  Model model , HttpSession session){
 
-        if(usuario.getEmail() == null || usuario.getPassword()== null || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty()){
+        if(usuario.getEmail() == null || usuario.getClave()== null || usuario.getEmail().isEmpty() || usuario.getClave().isEmpty()){
             return "login";
         }
-        UsuarioVO result = usuarioService.login(usuario);
+        Usuarios result = usuarioService.login(usuario);
         if(result != null){
             //add user to session
             session.setAttribute("usuario", result);
@@ -71,19 +72,19 @@ public class Principal{
         if(session.getAttribute("usuario") != null){
             return "redirect:".concat(request.getHeader("referer"));
         }
-        model.addAttribute("usuario", new UsuarioVO());
+        model.addAttribute("usuario", new Usuarios());
         return "registro";
     }
     @PostMapping(value = "/registro" , consumes = "application/x-www-form-urlencoded")
-    public String registro(UsuarioVO usuario , Model model , HttpSession session){
-        model.addAttribute("usuario", new UsuarioVO());
+    public String registro(Usuarios usuario , Model model , HttpSession session){
+        model.addAttribute("usuario", new Usuarios());
         if(usuario == null){
             return "registro";
         }
-        if(usuario.getEmail() == null || usuario.getPassword()== null || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty()){
+        if(usuario.getEmail() == null || usuario.getClave()== null || usuario.getEmail().isEmpty() || usuario.getClave().isEmpty()){
             return "registro";
         }
-        UsuarioVO result = usuarioService.registrar(usuario);
+        Usuarios result = usuarioService.registrar(usuario);
         if(result != null){
            session.setAttribute("usuario", result);
         }
@@ -98,8 +99,14 @@ public class Principal{
 
     @GetMapping("/producto/{id}")
     public String producto(@PathVariable(required = true)String id, Model model){
-        ProductoVO producto = productoService.findById(Integer.parseInt(id));
+        Productos producto = productoService.findById(Integer.parseInt(id));
         model.addAttribute("producto", producto);
         return "producto";
+    }
+
+    @PostConstruct
+    public void init() {
+
+
     }
 }

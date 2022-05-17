@@ -1,7 +1,7 @@
 package com.example.tiendacarlos.services.sql.clases;
 
 
-import com.example.tiendacarlos.models.productos.ProductoVO;
+import com.example.tiendacarlos.entities.Productos;
 import com.example.tiendacarlos.services.sql.interfaz.IProductoService;
 import com.example.tiendacarlos.services.sql.interfaz.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +16,17 @@ public class ProductoService implements IProductoService {
     ProductoRepository productoRepository;
 
     @Override
-    public ProductoVO findById(int id) {
+    public Productos findById(int id) {
 
         return productoRepository.findById(id).isPresent() ? productoRepository.findById(id).get() : null;
     }
 
-    @Override
-    public ProductoVO findByName(String name) {
-        return productoRepository.findByNombre(name);
-    }
+//    @Override
+//    public Productos findByName(String name) {
+//        return productoRepository.findByNombre(name);
+//    }
 
-    public ArrayList<ProductoVO> findAll(){
-        return (ArrayList<ProductoVO>) productoRepository.findAll();
+    public ArrayList<Productos> findAll(){
+        return (ArrayList<Productos>) productoRepository.findAll();
     }
 }

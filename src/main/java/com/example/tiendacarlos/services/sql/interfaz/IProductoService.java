@@ -1,10 +1,10 @@
 package com.example.tiendacarlos.services.sql.interfaz;
 
-import com.example.tiendacarlos.models.productos.ProductoVO;
+import com.example.tiendacarlos.entities.Productos;
 
 public interface IProductoService {
 
-    public ProductoVO findById(int id);
+    public Productos findById(int id);
 
-    public ProductoVO findByName(String name);
+//    public Productos findByName(String name);
 }

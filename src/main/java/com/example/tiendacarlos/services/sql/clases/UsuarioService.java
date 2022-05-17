@@ -1,6 +1,6 @@
 package com.example.tiendacarlos.services.sql.clases;
 
-import com.example.tiendacarlos.models.usuarios.UsuarioVO;
+import com.example.tiendacarlos.entities.Usuarios;
 import com.example.tiendacarlos.services.sql.interfaz.repository.UsuarioRepository;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +16,19 @@ public class UsuarioService {
 
     StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 
-    public UsuarioVO findById(int id) {
+    public Usuarios findById(int id) {
         return usuarioRepository.findById(id).get();
     }
 
-    public UsuarioVO findByEmail(String email) {
+    public Usuarios findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
 
-    public ArrayList<UsuarioVO> findAll() {
-        return (ArrayList<UsuarioVO>) usuarioRepository.findAll();
+    public ArrayList<Usuarios> findAll() {
+        return (ArrayList<Usuarios>) usuarioRepository.findAll();
     }
 
-    public UsuarioVO save(UsuarioVO usuario) {
+    public Usuarios save(Usuarios usuario) {
         return usuarioRepository.save(usuario);
     }
 
@@ -36,20 +36,20 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public ArrayList<UsuarioVO> findByRol(int rol) {
-        return (ArrayList<UsuarioVO>) usuarioRepository.findAllByRol(rol);
+    public ArrayList<Usuarios> findByRol(int rol) {
+        return (ArrayList<Usuarios>) usuarioRepository.findAllByRol(rol);
     }
 
-    public UsuarioVO registrar(UsuarioVO usuario) {
-        usuario.setPassword(passwordEncryptor.encryptPassword(usuario.getPassword()));
+    public Usuarios registrar(Usuarios usuario) {
+        usuario.setClave(passwordEncryptor.encryptPassword(usuario.getClave()));
         return usuarioRepository.save(usuario);
     }
 
-    public UsuarioVO login(UsuarioVO usuario) {
-        UsuarioVO usuarioVO = usuarioRepository.findByEmail(usuario.getEmail());
-        if (usuarioVO != null) {
-            if (passwordEncryptor.checkPassword(usuario.getPassword(), usuarioVO.getPassword())) {
-                return usuarioVO;
+    public Usuarios login(Usuarios usuario) {
+        Usuarios Usuarios = usuarioRepository.findByEmail(usuario.getEmail());
+        if (Usuarios != null) {
+            if (passwordEncryptor.checkPassword(usuario.getClave(), Usuarios.getClave())) {
+                return Usuarios;
             }
         }
         return null;
