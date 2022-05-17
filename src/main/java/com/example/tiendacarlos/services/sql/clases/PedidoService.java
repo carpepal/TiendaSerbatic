@@ -14,8 +14,8 @@ public class PedidoService {
         return pedidoRepository.findById(id).get();
     }
 
-    public void save(Pedidos pedido){
-        pedidoRepository.save(pedido);
+    public Pedidos save(Pedidos pedido){
+        return pedidoRepository.save(pedido);
     }
 
     public void delete(Pedidos pedido){

@@ -71,12 +71,14 @@ public class CartServices {
     public void buyProducts(HttpSession session ) {
         Pedidos pedido = new Pedidos(0 , (Usuarios) session.getAttribute("usuario") ,"tarjeta","Pendiente" , "1" , 100);
         Set<DetallesPedido> detalles = new HashSet<>();
+
+        pedido.setTotal(Double.parseDouble(session.getAttribute("total").toString()));
+        pedido= pedidoService.save(pedido);
+        //impuesto not nullable
         for(Productos producto :( (HashMap<Integer, Productos>) session.getAttribute("carrito")).values()) {
-            detalles.add(new DetallesPedido(0, pedido.getId()  , producto.getId() , producto.getPrecio(), producto.getCantidad() ,
+            detalles.add(new DetallesPedido(0, producto.getId(), pedido.getId() , producto.getPrecio(), producto.getCantidad() , producto.getImpuesto(),
                     (producto.getCantidad() * producto.getPrecio())));
         }
-        //impuesto not nullable
-        pedido.setTotal(Double.parseDouble(session.getAttribute("total").toString()));
         pedido.setDetallesPedidosById(detalles);
         pedidoService.save(pedido);
     }

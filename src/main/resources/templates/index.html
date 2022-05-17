@@ -16,7 +16,7 @@
 
             <div class="card w-25 mx-2 my-4 d-flex flex-column" th:each="Producto: ${list}">
                 <a th:href="@{/producto/{id}(id=${Producto.id})}">
-                    <img class="card-img-top" th:src="${Producto.imagen}" alt="Card image cap">
+                    <img class="card-img-top" th:src="${Producto.imagen}" alt="Card image cap" width="200px" height="140px">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title" th:text="${Producto?.nombre}">Nombre</h5>

@@ -42,15 +42,17 @@ public class DetallesPedido {
     @JoinColumn(name = "id_producto", referencedColumnName = "id" , insertable = false, updatable = false)
     private Productos productosByIdProducto;
 
-    public DetallesPedido(int id, int id_producto, int id_pedido, @DefaultValue(value="0")Double precio, @DefaultValue(value="0") Integer cantidad, @DefaultValue(value="0")double total) {
+    public DetallesPedido(int id, int id_producto, int id_pedido ,  @DefaultValue(value="0")Double precio, @DefaultValue(value="0") Integer cantidad,@DefaultValue(value="0") double impuesto, @DefaultValue(value="0")double total) {
         this.id = id;
-        this.idProducto = id_producto;
         this.idPedido = id_pedido;
+        this.idProducto = id_producto;
         this.precioUnidad = precio;
         this.unidades = cantidad;
         this.impuesto = impuesto;
         this.total = total;
     }
+
+
 
 
     public int getId() {
