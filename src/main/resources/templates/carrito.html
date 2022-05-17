@@ -30,14 +30,14 @@
             </tr>
             <tr>
                 <td>total</td>
-                <td></td>
+                <td th:text="${session.total}"></td>
             </tr>
             </tbody>
         </table>
         <div>
             <div class="buttons">
                 <a class="btn btn-primary" th:href="@{/}">Volver</a>
-                <a class="btn btn-primary" th:href="@{/carrito/comprar}">Comprar</a>
+                <a class="btn btn-primary" th:href="@{/Carrito/comprar}">Comprar</a>
             </div>
         </div>
     </section>

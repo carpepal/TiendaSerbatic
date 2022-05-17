@@ -11,7 +11,7 @@
     <form th:action="@{/login}" th:method="post" th:Object="${usuario}" class="d-flex flex-column justify-content-center align-items-center h-75">
         <h1>Login</h1>
         <input type="text" th:field="*{email}" name="email" placeholder="Email" class="m-2 p-2 border-0 border-bottom border-dark">
-        <input type="password" th:field="*{password}" name="clave" id="clave" class="m-2 p-2 border-0 border-bottom border-dark">
+        <input type="password" th:field="*{clave}" name="clave" id="clave" class="m-2 p-2 border-0 border-bottom border-dark">
         <p>no te has registrado , registrate <a th:href="@{/login}">aqui</a></p>
 
         <input type="submit" value="login" class="btn btn-dark text-white">

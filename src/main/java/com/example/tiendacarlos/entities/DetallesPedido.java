@@ -3,6 +3,7 @@ package com.example.tiendacarlos.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -34,14 +35,14 @@ public class DetallesPedido {
     @Basic
     @Column(name = "total")
     private Double total;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_pedido", referencedColumnName = "id" , insertable = false, updatable = false)
     private Pedidos pedidosByIdPedido;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_producto", referencedColumnName = "id" , insertable = false, updatable = false)
     private Productos productosByIdProducto;
 
-    public DetallesPedido(int id, int id_producto, int id_pedido, Double precio, Integer cantidad, Double impuesto, double total) {
+    public DetallesPedido(int id, int id_producto, int id_pedido, @DefaultValue(value="0")Double precio, @DefaultValue(value="0") Integer cantidad, @DefaultValue(value="0")double total) {
         this.id = id;
         this.idProducto = id_producto;
         this.idPedido = id_pedido;

@@ -41,7 +41,7 @@ public class CarritoRoute {
         }
         if(action.equals("sumar")){
 
-            cart.addProductToCart(id, session , productoService);
+            cart.addProductToCart(id, session );
         }
         if(action.equals("restar")){
            cart.removeProductFromCart(id, session);
@@ -65,7 +65,7 @@ public class CarritoRoute {
         if(session.getAttribute("carrito") == null){
             return "redirect:/";
         }
-        cart.buyProducts(session , pedidoService , productoService);
+        cart.buyProducts(session );
         return "comprar";
     }
 }

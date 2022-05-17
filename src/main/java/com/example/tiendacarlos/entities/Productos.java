@@ -1,6 +1,7 @@
 package com.example.tiendacarlos.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class Productos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +44,7 @@ public class Productos {
     @Basic
     @Column(name = "imagen")
     private String imagen;
-    @OneToMany(mappedBy = "productosByIdProducto")
+    @OneToMany(mappedBy = "productosByIdProducto" , cascade = CascadeType.PERSIST)
     private Collection<DetallesPedido> detallesPedidosById;
     @ManyToOne
     @JoinColumn(name = "id_categoria", referencedColumnName = "id" , insertable = false, updatable = false)

@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 @Service
 public class CartServices {
@@ -35,6 +33,7 @@ public class CartServices {
             producto.setCantidad(1);
             carrito.put(Integer.parseInt(id), producto);
         }
+        calcularTotal(session);
     }
 
     public void removeProductFromCart(String id , HttpSession session ) {
@@ -45,24 +44,40 @@ public class CartServices {
                 carrito.remove(Integer.parseInt(id));
             }
         }
+        calcularTotal(session);
     }
 
     public void deleteProductFromCart(String id , HttpSession session) {
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
         carrito.remove(Integer.parseInt(id));
+        calcularTotal(session);
     }
 
     public void clearCart(HttpSession session) {
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
         carrito.clear();
+        calcularTotal(session);
+    }
+
+    public void calcularTotal(HttpSession session){
+        Double total = 0.0;
+        HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
+        for(Productos p : carrito.values()){
+            total += p.getPrecio() * p.getCantidad();
+        }
+        session.setAttribute("total", total);
     }
 
     public void buyProducts(HttpSession session ) {
         Pedidos pedido = new Pedidos(0 , (Usuarios) session.getAttribute("usuario") ,"tarjeta","Pendiente" , "1" , 100);
-        Collection<DetallesPedido> detalles = pedido.getDetallesPedidosById();
+        Set<DetallesPedido> detalles = new HashSet<>();
         for(Productos producto :( (HashMap<Integer, Productos>) session.getAttribute("carrito")).values()) {
-            detalles.add(new DetallesPedido(0, pedido.getId()  , producto.getId() , producto.getPrecio(), producto.getCantidad() , producto.getImpuesto() , (producto.getCantidad() * producto.getPrecio()) * (producto.getImpuesto() / 100)));
+            detalles.add(new DetallesPedido(0, pedido.getId()  , producto.getId() , producto.getPrecio(), producto.getCantidad() ,
+                    (producto.getCantidad() * producto.getPrecio())));
         }
+        //impuesto not nullable
+        pedido.setTotal(Double.parseDouble(session.getAttribute("total").toString()));
+        pedido.setDetallesPedidosById(detalles);
         pedidoService.save(pedido);
     }
 }

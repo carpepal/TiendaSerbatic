@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,8 +37,8 @@ public class Pedidos {
     @Basic
     @Column(name = "total")
     private Double total;
-    @OneToMany(mappedBy = "pedidosByIdPedido")
-    private Collection<DetallesPedido> detallesPedidosById;
+    @OneToMany(mappedBy = "pedidosByIdPedido" , cascade = CascadeType.ALL)
+    private Set<DetallesPedido> detallesPedidosById;
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id" , insertable = false, updatable = false)
     private Usuarios usuariosByIdUsuario;
@@ -125,7 +126,7 @@ public class Pedidos {
         return detallesPedidosById;
     }
 
-    public void setDetallesPedidosById(Collection<DetallesPedido> detallesPedidosById) {
+    public void setDetallesPedidosById(Set<DetallesPedido> detallesPedidosById) {
         this.detallesPedidosById = detallesPedidosById;
     }
 
