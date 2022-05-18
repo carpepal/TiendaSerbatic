@@ -68,8 +68,8 @@ public class CartServices {
         session.setAttribute("total", total);
     }
 
-    public void buyProducts(HttpSession session ) {
-        Pedidos pedido = new Pedidos(0 , (Usuarios) session.getAttribute("usuario") ,"tarjeta","Pendiente" , "1" , 100);
+    public void buyProducts(HttpSession session  , String metodo) {
+        Pedidos pedido = new Pedidos(0 , (Usuarios) session.getAttribute("usuario") ,metodo,"Pendiente" , "1" , 100);
         Set<DetallesPedido> detalles = new HashSet<>();
 
         pedido.setTotal(Double.parseDouble(session.getAttribute("total").toString()));

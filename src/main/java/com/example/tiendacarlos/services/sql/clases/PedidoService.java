@@ -4,6 +4,7 @@ import com.example.tiendacarlos.entities.Pedidos;
 import com.example.tiendacarlos.services.sql.interfaz.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PedidoService {
@@ -13,6 +14,7 @@ public class PedidoService {
     public Pedidos findById(int id){
         return pedidoRepository.findById(id).get();
     }
+
 
     public Pedidos save(Pedidos pedido){
         return pedidoRepository.save(pedido);

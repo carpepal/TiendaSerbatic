@@ -43,14 +43,14 @@ public class Pedidos {
     @JoinColumn(name = "id_usuario", referencedColumnName = "id" , insertable = false, updatable = false)
     private Usuarios usuariosByIdUsuario;
 
-    public Pedidos(int i, Usuarios usuario, String tarjeta, String pendiente, String s, int i1) {
+    public Pedidos(int id, Usuarios usuario, String tarjeta, String pendiente, String numFactura, int total) {
 
-        this.id = i;
+        this.id = id;
         this.usuariosByIdUsuario = usuario;
         this.fecha = new Timestamp(System.currentTimeMillis());
         this.metodoPago = tarjeta;
         this.estado = pendiente;
-        this.numFactura = s;
+        this.numFactura = numFactura;
     }
 
     public int getId() {

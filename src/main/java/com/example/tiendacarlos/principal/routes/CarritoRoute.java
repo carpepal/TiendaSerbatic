@@ -6,12 +6,10 @@ import com.example.tiendacarlos.services.CartServices;
 import com.example.tiendacarlos.services.sql.clases.PedidoService;
 import com.example.tiendacarlos.services.sql.clases.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -56,8 +54,8 @@ public class CarritoRoute {
         return "redirect:"+ruta;
     }
 
-    @GetMapping("/comprar")
-    public String comprar(Model model , HttpSession session){
+    @PostMapping("/comprar")
+    public String comprar(@Param(value = "metodo") String metodo , Model model , HttpSession session){
         if(session.getAttribute("usuario") == null){
             session.setAttribute("from" , "/carrito/comprar");
             return "redirect:/login";
@@ -65,7 +63,7 @@ public class CarritoRoute {
         if(session.getAttribute("carrito") == null){
             return "redirect:/";
         }
-        cart.buyProducts(session );
+        cart.buyProducts(session  , metodo);
         return "comprar";
     }
 }

@@ -12,6 +12,7 @@
     <section>
         <h1>Carrito</h1>
         <hr>
+        <form th:action="@{/Carrito/comprar}" method="POST">
         <table class="table">
             <thead>
             <tr>
@@ -23,23 +24,32 @@
             </thead>
             <tbody>
             <tr th:each="entry: ${session.carrito}">
-                <td th:text="${entry.value?.nombre}"></td>
-                <td th:text="${entry.value?.cantidad}"></td>
-                <td th:text="${entry.value?.precio}"></td>
-                <td th:text="${entry.value?.precio * entry.value?.cantidad}"></td>
+                <td th:text="${entry.value?.nombre}">nombre</td>
+                <td th:text="${entry.value?.cantidad}">cantidad</td>
+                <td th:text="${entry.value?.precio}">precia</td>
+                <td th:text="${entry.value?.precio * entry.value?.cantidad}">total</td>
             </tr>
+
             <tr>
                 <td>total</td>
-                <td th:text="${session.total}"></td>
+                <td th:text="${session.total}">total compra</td>
             </tr>
             </tbody>
         </table>
         <div>
+            <div>
+                <label>metodo de pago:</label>
+                <select name="metodo">
+                    <option value="Tarjeta">Tarjeta de credito</option>
+                    <option value="Paypal">Paypal</option>
+                </select>
+            </div>
             <div class="buttons">
                 <a class="btn btn-primary" th:href="@{/}">Volver</a>
-                <a class="btn btn-primary" th:href="@{/Carrito/comprar}">Comprar</a>
+                <input type="submit" class="btn btn-primary" value="Comprar">
             </div>
         </div>
+        </form>
     </section>
 </main>
 <div th:replace="components/footer"></div>

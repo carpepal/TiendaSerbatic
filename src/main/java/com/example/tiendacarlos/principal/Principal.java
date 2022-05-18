@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class Principal{
     @Autowired
     private PedidoService pedidoService;
 
+    @Autowired
+    private ServletContext servletContext;
+
     @GetMapping("/")
     public String index(Model model , HttpSession session){
         String ruta = "index";
@@ -35,6 +39,7 @@ public class Principal{
         model.addAttribute("list", list);
 //        System.out.println(pedidoService.findByCliente(5));
         System.out.println(pedidoService.findAll());
+        System.out.println(servletContext.getRealPath("/"));
         return ruta;
     }
 
