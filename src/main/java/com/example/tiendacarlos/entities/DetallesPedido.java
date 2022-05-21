@@ -35,14 +35,15 @@ public class DetallesPedido {
     @Basic
     @Column(name = "total")
     private Double total;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_pedido", referencedColumnName = "id" , insertable = false, updatable = false)
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "id_pedido", insertable = false, updatable = false, referencedColumnName = "id")
     private Pedidos pedidosByIdPedido;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_producto", referencedColumnName = "id" , insertable = false, updatable = false)
     private Productos productosByIdProducto;
 
-    public DetallesPedido(int id, int id_producto, int id_pedido ,  @DefaultValue(value="0")Double precio, @DefaultValue(value="0") Integer cantidad,@DefaultValue(value="0") double impuesto, @DefaultValue(value="0")double total) {
+    public DetallesPedido(int id, int id_producto, int id_pedido ,  @DefaultValue(value="0")Double precio, @DefaultValue(value="0") Integer cantidad,@DefaultValue(value="0") double impuesto, @DefaultValue(value="0")double total  , Productos produto) {
         this.id = id;
         this.idPedido = id_pedido;
         this.idProducto = id_producto;
@@ -50,6 +51,7 @@ public class DetallesPedido {
         this.unidades = cantidad;
         this.impuesto = impuesto;
         this.total = total;
+        this.productosByIdProducto = produto;
     }
 
 
@@ -142,6 +144,6 @@ public class DetallesPedido {
 
     @Override
     public String toString() {
-        return "DetallesPedido{" + "id=" + id + ", idPedido=" + idPedido + ", Producto=" + productosByIdProducto + ", precioUnidad=" + precioUnidad + ", unidades=" + unidades + ", impuesto=" + impuesto + ", total=" + total + '}';
+        return "DetallesPedido{" + "id=" + id + ", idPedido=" + idPedido + ", Producto=" + productosByIdProducto + ", precioUnidad=" + precioUnidad + ", unidades=" + unidades + ", impuesto=" + impuesto + ", total=" + total + ", Productos=" + productosByIdProducto + '}';
     }
 }

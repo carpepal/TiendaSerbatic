@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura</title>
+    <link th:replace="components/imports">
+</head>
+<body>
+<div th:replace="components/navbar"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Factura| id=(<span th:text="${pedido?.numFactura}">a</span>)</h1>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Datos del cliente</h3>
+                        <p th:text="'Nombre :'+ ${usuario?.nombre}">
+                            <strong>Nombre: </strong> {{cliente.nombre}}
+                        </p>
+                        <p th:text="'apellidos :'+ ${usuario?.apellido1} +' '+ ${usuario?.apellido2}">
+                            <strong>Apellido: </strong> {{cliente.apellido}}
+                        </p>
+                        <p th:text="'direccion :'+ ${usuario?.direccion}">
+                            <strong>Dirección: </strong> {{cliente.direccion}}
+                        </p>
+                        <p th:text="'telefono :'+ ${usuario?.telefono}">
+                            <strong>Teléfono: </strong> {{cliente.telefono}}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Datos de la compra</h3>
+                        <p>
+                            <strong>Fecha: </strong> <span th:text="${pedido?.fecha}">{{compra.fecha}}</span>
+                        </p>
+                        <p>
+                            <strong>Total: </strong> <span th:text="${pedido?.total}">{{compra.total}}</span>
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <h3>Detalle de la compra</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="linea : ${detalle}">
+                                <td th:text="${linea?.productosByIdProducto?.nombre}">{{producto.nombre}}</td>
+                                <td th:text="${linea?.unidades}">{{producto.cantidad}}</td>
+                                <td th:text="${linea?.precioUnidad}">{{producto.precio}}</td>
+                                <td th:text="${linea?.total}">{{producto.subtotal}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">Total</td>
+                                <td th:text="${pedido.total}">{{compra.total}}</td>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+<div th:replace="components/footer"></div>
+</body>
+</html>

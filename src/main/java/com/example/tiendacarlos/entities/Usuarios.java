@@ -1,9 +1,13 @@
 package com.example.tiendacarlos.entities;
 
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Objects;
 @NoArgsConstructor
@@ -18,9 +22,14 @@ public class Usuarios {
     @Column(name = "id_rol")
     private Integer idRol;
     @Basic
+    @NotNull
+    @NotBlank
     @Column(name = "email")
     private String email;
     @Basic
+    @NotBlank
+    @NotNull(message = "El campo contraseña no puede estar vacio")
+    @Size(min = 1 , max = 32 , message = "La contraseña debe tener entre 8 y 32 caracteres")
     @Column(name = "clave")
     private String clave;
     @Basic

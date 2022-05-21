@@ -8,12 +8,14 @@ import com.example.tiendacarlos.services.sql.clases.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -52,8 +54,12 @@ public class Principal{
         return "login";
     }
     @PostMapping("/login")
-    public String login(Usuarios usuario,  Model model , HttpSession session){
+    public String login(@Valid Usuarios usuario, BindingResult bindingResult , HttpSession session , Model model){
 
+        if(bindingResult.hasErrors()){
+            System.out.println(bindingResult);
+            return "redirect:/login";
+        }
         if(usuario.getEmail() == null || usuario.getClave()== null || usuario.getEmail().isEmpty() || usuario.getClave().isEmpty()){
             return "login";
         }

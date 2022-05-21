@@ -44,7 +44,7 @@ public class Productos {
     @Basic
     @Column(name = "imagen")
     private String imagen;
-    @OneToMany(mappedBy = "productosByIdProducto" , cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "productosByIdProducto" , cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
     private Collection<DetallesPedido> detallesPedidosById;
     @ManyToOne
     @JoinColumn(name = "id_categoria", referencedColumnName = "id" , insertable = false, updatable = false)

@@ -68,8 +68,9 @@ public class CartServices {
         session.setAttribute("total", total);
     }
 
-    public void buyProducts(HttpSession session  , String metodo) {
+    public Pedidos buyProducts(HttpSession session  , String metodo) {
         Pedidos pedido = new Pedidos(0 , (Usuarios) session.getAttribute("usuario") ,metodo,"Pendiente" , "1" , 100);
+        pedido.setIdUsuario(((Usuarios) session.getAttribute("usuario")).getId());
         Set<DetallesPedido> detalles = new HashSet<>();
 
         pedido.setTotal(Double.parseDouble(session.getAttribute("total").toString()));
@@ -77,9 +78,11 @@ public class CartServices {
         //impuesto not nullable
         for(Productos producto :( (HashMap<Integer, Productos>) session.getAttribute("carrito")).values()) {
             detalles.add(new DetallesPedido(0, producto.getId(), pedido.getId() , producto.getPrecio(), producto.getCantidad() , producto.getImpuesto(),
-                    (producto.getCantidad() * producto.getPrecio())));
+                    (producto.getCantidad() * producto.getPrecio()) , producto));
         }
         pedido.setDetallesPedidosById(detalles);
-        pedidoService.save(pedido);
+        clearCart(session);
+        return pedidoService.save(pedido);
+
     }
 }
