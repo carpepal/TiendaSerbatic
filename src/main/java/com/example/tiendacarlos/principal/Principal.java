@@ -5,6 +5,7 @@ import com.example.tiendacarlos.entities.Usuarios;
 import com.example.tiendacarlos.services.sql.clases.PedidoService;
 import com.example.tiendacarlos.services.sql.clases.ProductoService;
 import com.example.tiendacarlos.services.sql.clases.UsuarioService;
+import com.example.tiendacarlos.util.global_functions.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -116,10 +117,26 @@ public class Principal{
     }
 
     @GetMapping("/pedidos")
-    public String pedidos(Model model , HttpSession session){
+    public String pedidos(Model model , HttpSession session) {
+        if (SessionUtil.hasNotUserSession(session)){
+            return "redirect:/";
+        }
         model.addAttribute("pedidos", pedidoService.findByCliente(((Usuarios) session.getAttribute("usuario")).getId()));
         return "pedidos";
     }
+
+
+
+
+    @GetMapping("/usuario")
+    public String user(Model model , HttpSession session){
+        if(SessionUtil.hasNotUserSession(session)){
+            return "redirect:/";
+        }
+        model.addAttribute("usuario", session.getAttribute("usuario"));
+        return "user";
+    }
+
 
     @PostConstruct
     public void init() {

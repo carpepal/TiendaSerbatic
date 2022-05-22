@@ -37,4 +37,8 @@ public class PedidoService {
     public Set<Pedidos> findByCliente(int id){
         return pedidoRepository.findAllPedidosByUsuario(id);
     }
+
+    public void cancelarPedido(int parseInt) {
+        pedidoRepository.cancelarPedido(parseInt);
+    }
 }

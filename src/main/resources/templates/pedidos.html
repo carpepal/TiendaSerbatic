@@ -26,12 +26,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="pedido : ${pedidos}">
-                    <td th:text="${pedido.numFactura}">${pedido.numFactura}</td>
-                    <td th:text="${pedido.fecha}">${pedido.fecha}</td>
-                    <td th:text="${pedido.metodoPago}">${pedido.metodoPago}</td>
-                    <td th:text="${pedido.estado}">${pedido.estado}</td>
-                    <td th:text="${pedido.total}">${pedido.total}</td>
+                <tr th:each="pedido : ${pedidos}" onclick="showPedido(event)" data-th-attr="data-id=${pedido?.id}">
+                    <td th:text="${pedido?.numFactura}">${pedido.numFactura}</td>
+                    <td th:text="${pedido?.fecha}">${pedido.fecha}</td>
+                    <td th:text="${pedido?.metodoPago}">${pedido.metodoPago}</td>
+                    <td th:text="${pedido?.estado}">${pedido.estado}</td>
+                    <td th:text="${pedido?.total}">${pedido.total}</td>
+                    <td>
+                        <button data-th-attr="data-id=${pedido?.id}" onclick="cancelarPedido(event)">cancelar</button>
+                    </td>
                 </tr>
                 </tbody>
             </table>

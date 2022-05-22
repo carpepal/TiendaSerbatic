@@ -2,9 +2,11 @@ package com.example.tiendacarlos.services.sql.interfaz.repository;
 
 import com.example.tiendacarlos.entities.Pedidos;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -17,4 +19,9 @@ public interface PedidoRepository extends JpaRepository<Pedidos, Integer> {
 //    @Query(value="select a from pedidos a where a.usuario.id = :id")
 //    @Query("select a from pedidos a where a.usuario.id = :Usuarioid")
     Set<Pedidos> findAllPedidosByUsuario(@Param("Usuarioid") int Usuarioid);
+
+    @Transactional
+    @Modifying
+    @Query(value = " update Pedidos set estado = 'cancelado' where id = ?1")
+    void cancelarPedido(int parseInt);
 }

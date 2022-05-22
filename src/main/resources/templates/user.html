@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuario</title>
+    <link th:replace="components/imports"/>
+</head>
+<body>
+<div th:replace="components/navbar"></div>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" th:src="@{'/assets/img/user-'+${usuario?.id}+'.png'}"><span class="font-weight-bold" th:text="${usuario.nombre}">Edogaru</span><span class="text-black-50" th:text="${usuario.email}">edogaru@mail.com.my</span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <form th:action="@{/usuario/guardar}" th:method="Post" th:Object="${usuario}" name="userform" id="userform" class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <div class="col-md-12"><label class="labels">email <input type="text" name="email" id="email" class="form-control" th:field="*{email}" th:value="${usuario?.email}" readonly></label></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12"><label class="labels">nombre</label><input type="text" class="form-control" placeholder="first name" th:field="*{nombre}" th:value="${usuario?.nombre}"></div>
+                    <div class="col-md-12"><label class="labels">apellido 1</label><input type="text" class="form-control" value="" placeholder="surname" th:field="*{apellido1}" th:value="${usuario?.apellido1}"></div>
+                    <div class="col-md-12"><label class="labels">apellido 2</label><input type="text" class="form-control" value="" placeholder="surname" th:field="*{apellido2}" th:value="${usuario?.apellido2}"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12"><label class="labels">Numero de telefono</label><input type="text" class="form-control" placeholder="enter phone number" th:field="*{telefono}" th:value="${usuario?.telefono}"></div>
+                    <div class="col-md-12"><label class="labels">Direccion</label><input type="text" class="form-control" placeholder="enter address line 1" th:field="*{direccion}" th:value="${usuario?.direccion}"></div>
+                    <div class="col-md-12"><label class="labels">Provincia</label><input type="text" class="form-control" placeholder="enter address line 2" th:field="*{provincia}" th:value="${usuario?.provincia}"></div>
+                    <div class="col-md-12"><label class="labels">Localidad</label><input type="text" class="form-control" placeholder="enter address line 2" th:field="*{localidad}" th:value="${usuario?.localidad}"></div>
+                    <div class="col-md-12"><label class="labels">dni</label><input type="text" class="form-control" placeholder="enter address line 2" th:field="*{dni}" th:value="${usuario?.dni}"></div>
+                </div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" onclick="guardarPerfil(event)">Save Profile</button></div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="components/footer"></div>
+</body>
+</html>
