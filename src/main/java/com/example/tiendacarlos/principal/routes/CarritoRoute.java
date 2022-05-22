@@ -29,11 +29,6 @@ public class CarritoRoute {
     @Autowired
     private CartServices cart = new CartServices();
 
-    @GetMapping("")
-    public String carrito(Model model){
-        return "carrito";
-    }
-
     @GetMapping("/{id}")
     public String carrito(@PathVariable(required = true)String id, @RequestParam(required = true)String action, Model model , HttpSession session , HttpServletRequest request){
         if(session.getAttribute("carrito" ) == null){

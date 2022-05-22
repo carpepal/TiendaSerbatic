@@ -7,12 +7,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedidos, Integer> {
+//    Set<Pedidos> findAllPedidosByUsuario(int id);
 
-//    @Query(value="SELECT * FROM pedidos where pedidos.id_usuario = 5" , nativeQuery = true)
+    @Query(value="SELECT * FROM pedidos where pedidos.id_usuario = :Usuarioid" , nativeQuery = true)
 //    @Query(value="select a from pedidos a where a.usuario.id = :id")
 //    @Query("select a from pedidos a where a.usuario.id = :Usuarioid")
-//    ArrayList<Pedidos> findAllPedidosByUsuario(@Param("Usuarioid") int Usuarioid);
+    Set<Pedidos> findAllPedidosByUsuario(@Param("Usuarioid") int Usuarioid);
 }

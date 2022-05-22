@@ -115,7 +115,11 @@ public class Principal{
         return "producto";
     }
 
-
+    @GetMapping("/pedidos")
+    public String pedidos(Model model , HttpSession session){
+        model.addAttribute("pedidos", pedidoService.findByCliente(((Usuarios) session.getAttribute("usuario")).getId()));
+        return "pedidos";
+    }
 
     @PostConstruct
     public void init() {

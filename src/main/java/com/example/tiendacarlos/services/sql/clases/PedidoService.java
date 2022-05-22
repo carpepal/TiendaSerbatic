@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 @Service
 public class PedidoService {
     @Autowired
@@ -32,7 +34,7 @@ public class PedidoService {
         return pedidoRepository.findAll();
     }
 
-//    public Iterable<Pedidos> findByCliente(int id){
-//        return pedidoRepository.findAllPedidosByUsuario(id);
-//    }
+    public Set<Pedidos> findByCliente(int id){
+        return pedidoRepository.findAllPedidosByUsuario(id);
+    }
 }
