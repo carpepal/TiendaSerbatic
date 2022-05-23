@@ -73,6 +73,10 @@ public class Principal{
                 session.removeAttribute("from");
                 return "redirect:".concat(from);
             }
+
+            if(result.getRolesByIdRol().getRol().equals("admin")){
+                return "redirect:/admin/clientes";
+            }
             return "redirect:/";
         }
 

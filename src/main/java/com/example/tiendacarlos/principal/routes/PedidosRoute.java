@@ -37,7 +37,7 @@ public class PedidosRoute {
         if(pedido == null){
             return "redirect:/pedidos";
         }
-        if(pedido.getIdUsuario() != SessionUtil.getUserSession(session).getId()) {
+        if(pedido.getIdUsuario() == SessionUtil.getUserSession(session).getId()) {
             model.addAttribute("pedido", pedido);
             model.addAttribute("detalle", pedido.getDetallesPedidosById());
             model.addAttribute("usuario", pedido.getUsuariosByIdUsuario());

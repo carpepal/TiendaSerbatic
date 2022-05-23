@@ -17,3 +17,20 @@ function guardarPerfil({target}){
         form.submit();
     }
 }
+
+function showPedido({target}){
+    let id = target.dataset.id;
+    if(id === undefined){
+        id = target.parentElement.dataset.id;
+    }
+    location.href = `/pedidos/${id}`;
+}
+
+function deleteUser (e){
+    e.preventDefault();
+    if(confirm("¿Está seguro que desea eliminar el usuario?")){
+        let id = e.target.dataset.id;
+
+        location.href = `/admin/clientes/delete?id=${id}`;
+    }
+}

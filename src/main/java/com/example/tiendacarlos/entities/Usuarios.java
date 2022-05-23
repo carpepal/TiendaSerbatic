@@ -57,6 +57,9 @@ public class Usuarios {
     @Basic
     @Column(name = "dni")
     private String dni;
+//    @Basic
+//    @Column(name = "baja")
+//    private Boolean baja;
     @OneToMany(mappedBy = "usuariosByIdUsuario")
     private Collection<Pedidos> pedidosById;
     @ManyToOne
@@ -196,5 +199,23 @@ public class Usuarios {
 
     public void setValoracionesById(Collection<Valoraciones> valoracionesById) {
         this.valoracionesById = valoracionesById;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuarios{" +
+                "id=" + id +
+                ", idRol=" + idRol +
+                ", email='" + email + '\'' +
+                ", clave='" + clave + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", provincia='" + provincia + '\'' +
+                ", localidad='" + localidad + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", dni='" + dni + '\'' +
+                '}';
     }
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos</title>
+    <th:block th:replace="components/imports"/>
+</head>
+<body>
+<th:block th:replace="components/navbar"/>
+<main>
+    <div class="container">
+        <h1>pedidos pendientes</h1>
+        <hr>
+        <div class="row">
+            <div class="col-md-2">estado</div>
+            <div class="col-md-2">fecha</div>
+            <div class="col-md-2">metodo de pago</div>
+            <div class="col-md-2"> total</div>
+            <div class="col-md-2">numero de factura</div>
+        </div>
+        <th:block th:each="pedido: ${pedidos}">
+            <form th:action="@{/admin/pedidos/edit}" method="post">
+                <div class="row my-2">
+                    <div class="col-md-2">
+                        <input type="hidden" name="id" th:value="${pedido.id}">
+                        <select name="estado">
+                            <option value="pendiente" th:selected="${pedido.estado == 'pendiente'}">pendiente</option>
+                            <option value="cancelado" th:selected="${pedido.estado == 'cancelado'}" disabled>cancelado</option>
+                            <option value="enviado" th:selected="${pedido.estado == 'enviado'}">enviado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" name="fecha" th:value="${pedido.fecha}" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" name="metodoPago" th:value="${pedido.metodoPago}" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" name="total" th:value="${pedido.total}" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" name="numFactura" th:value="${pedido.numero}" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="hidden" name="id" th:value="${pedido.id}">
+                        <input type="submit" value="editar" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+        </th:block>
+    </div>
+</main>
+</body>
+</html>

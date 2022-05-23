@@ -29,4 +29,8 @@ public class ProductoService implements IProductoService {
     public ArrayList<Productos> findAll(){
         return (ArrayList<Productos>) productoRepository.findAll();
     }
+
+    public void save(Productos producto) {
+        productoRepository.save(producto);
+    }
 }

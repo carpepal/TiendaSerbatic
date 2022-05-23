@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -24,4 +25,7 @@ public interface PedidoRepository extends JpaRepository<Pedidos, Integer> {
     @Modifying
     @Query(value = " update Pedidos set estado = 'cancelado' where id = ?1")
     void cancelarPedido(int parseInt);
+
+    @Query("select p from Pedidos p where p.estado = ?1")
+    List<Pedidos> findByEstado(String estado);
 }
