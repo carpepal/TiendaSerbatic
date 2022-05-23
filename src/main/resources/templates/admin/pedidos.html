@@ -25,8 +25,8 @@
                         <input type="hidden" name="id" th:value="${pedido.id}">
                         <select name="estado">
                             <option value="pendiente" th:selected="${pedido.estado == 'pendiente'}">pendiente</option>
-                            <option value="cancelado" th:selected="${pedido.estado == 'cancelado'}" disabled>cancelado</option>
                             <option value="enviado" th:selected="${pedido.estado == 'enviado'}">enviado</option>
+                            <option value="cancelado" th:selected="${pedido.estado == 'cancelado'}" th:disabled="${session?.usuario?.idRol!= 1}">cancelado</option>
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -39,11 +39,12 @@
                         <input type="text" name="total" th:value="${pedido.total}" class="form-control">
                     </div>
                     <div class="col-md-2">
-                        <input type="text" name="numFactura" th:value="${pedido.numero}" class="form-control">
+                        <input type="text" name="numFactura" th:value="${pedido.numFactura}" class="form-control">
                     </div>
                     <div class="col-md-2">
                         <input type="hidden" name="id" th:value="${pedido.id}">
                         <input type="submit" value="editar" class="btn btn-primary">
+                        <button th:if="${session?.usuario?.rolesByIdRol?.rol=='admin'}" data-th-attr="data-id=${pedido.id}" class="btn btn-danger" onclick="deletePedido(event)">eliminar</button>
                     </div>
                 </div>
             </form>

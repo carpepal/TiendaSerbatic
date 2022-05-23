@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductoRepository extends JpaRepository<Productos, Integer> {
 
 //    Productos findByNombre(String nombre);
+    //update nombre , descripcion and stock of a product
+
 
 }

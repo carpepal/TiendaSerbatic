@@ -34,3 +34,21 @@ function deleteUser (e){
         location.href = `/admin/clientes/delete?id=${id}`;
     }
 }
+
+function deleteProducto (e){
+    e.preventDefault();
+    if(confirm("¿Está seguro que desea eliminar el producto?")){
+        let id = e.target.dataset.id;
+
+        location.href = `/admin/productos/delete?id=${id}`;
+    }
+}
+
+function deletePedido(e){
+    e.preventDefault();
+    if(confirm("¿Está seguro que desea eliminar el pedido?")){
+        let id = e.target.dataset.id;
+
+        location.href = `/admin/pedidos/delete?id=${id}`;
+    }
+}

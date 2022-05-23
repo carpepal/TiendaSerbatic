@@ -42,12 +42,14 @@
                 <div class="col-md-2">
 
                     <select name="idCategoria">
+                        <option value="" disabled selected>Seleccione una categoria</option>
                         <th:block th:each="categoria: ${categorias}">
                             <option th:value="${categoria?.id}" th:text="${categoria.nombre}" th:Selected="${categoria?.id==producto?.idCategoria}">${categoria.nombre}</option>
                         </th:block>
                 </div>
                 <div class="col-md-2 p-2">
                     <input class="btn btn-primary" type="submit" value="modificar">
+                    <button th:if="${session?.usuario?.rolesByIdRol?.rol=='admin'}" data-th-attr="data-id=${producto.id}" class="btn btn-danger" onclick="deleteProducto(event)">eliminar</button>
                     <!--                    <button data-th-attr="data-id=${user.id}" class="btn btn-danger" onclick="deleteUser(event)">eliminar</button>-->
                 </div>
             </form>

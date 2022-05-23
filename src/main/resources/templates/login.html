@@ -8,7 +8,7 @@
 <body class="vh-100">
 <div th:replace="components/navbar"></div>
 <div class="d-flex flex-column justify-content-center align-items-center h-75 w-auto">
-    <form th:action="@{/login}" th:method="post" th:Object="${usuario}" class="d-flex flex-column justify-content-center align-items-center h-75">
+    <form th:action="@{/login}" th:method="post" th:Object="${Usuario}" class="d-flex flex-column justify-content-center align-items-center h-75">
         <h1>Login</h1>
         <input type="text" th:field="*{email}" name="email" placeholder="Email" class="m-2 p-2 border-0 border-bottom border-dark">
         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="*{usuario.email}"></span>

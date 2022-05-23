@@ -51,15 +51,16 @@ public class Principal{
         if(session.getAttribute("usuario") != null){
             return "redirect:".concat(request.getHeader("referer"));
         }
-        model.addAttribute("usuario", new Usuarios());
+        model.addAttribute("Usuario", new Usuarios());
         return "login";
     }
     @PostMapping("/login")
-    public String login(@Valid Usuarios usuario, BindingResult bindingResult , HttpSession session , Model model){
+    public String login(@Valid @ModelAttribute  Usuarios usuario, BindingResult bindingResult , HttpSession session , Model model){
 
         if(bindingResult.hasErrors()){
             System.out.println(bindingResult);
-            return "redirect:/login";
+            model.addAttribute("Usuario", usuario);
+            return "login";
         }
         if(usuario.getEmail() == null || usuario.getClave()== null || usuario.getEmail().isEmpty() || usuario.getClave().isEmpty()){
             return "login";
@@ -68,15 +69,18 @@ public class Principal{
         if(result != null){
             //add user to session
             session.setAttribute("usuario", result);
-            if(session.getAttribute("from") != null){
-                String from = (String) session.getAttribute("from");
-                session.removeAttribute("from");
-                return "redirect:".concat(from);
-            }
+//            if(session.getAttribute("from") != null){
+//                String from = (String) session.getAttribute("from");
+//                session.removeAttribute("from");
+//                return "redirect:".concat(from);
+//            }
 
-            if(result.getRolesByIdRol().getRol().equals("admin")){
-                return "redirect:/admin/clientes";
+            if(usuarioService.isAdmin(result) || usuarioService.isEmp(result)){
+                return "redirect:/emp/clientes";
             }
+//            if(result.getRolesByIdRol().getRol().equals("emp")){
+//                return "redirect:/emp/clientes";
+//            }
             return "redirect:/";
         }
 

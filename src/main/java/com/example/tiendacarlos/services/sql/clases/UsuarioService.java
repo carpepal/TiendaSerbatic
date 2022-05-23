@@ -55,7 +55,17 @@ public class UsuarioService {
         return null;
     }
 
+    public Boolean isAdmin(Usuarios usuario) {
+        return usuario.getRolesByIdRol().getRol().equals("admin");
+    }
 
+    public Boolean isEmp(Usuarios usuario) {
+        return usuario.getRolesByIdRol().getRol().equals("emp");
+    }
+
+    public ArrayList<Usuarios> findAllEmpleados() {
+        return usuarioRepository.findAllByRol(18);
+    }
 }
 
 

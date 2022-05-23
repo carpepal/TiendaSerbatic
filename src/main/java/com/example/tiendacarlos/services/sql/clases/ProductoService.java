@@ -33,4 +33,8 @@ public class ProductoService implements IProductoService {
     public void save(Productos producto) {
         productoRepository.save(producto);
     }
+
+    public void deleteById(int id) {
+        productoRepository.deleteById(id);
+    }
 }
