@@ -18,7 +18,7 @@ public class GeneralUtils {
             if(field.get(original) == null)
                 field.set(original, field.get(cambios));
 
-            if(field.get(original) == null){
+            if(field.get(original) != null){
                 if(field.getName().equals("id") && (Integer)field.get(cambios) == 0)
                     continue;
 

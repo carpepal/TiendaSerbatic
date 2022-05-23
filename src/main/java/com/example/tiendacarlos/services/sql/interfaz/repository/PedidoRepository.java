@@ -26,6 +26,11 @@ public interface PedidoRepository extends JpaRepository<Pedidos, Integer> {
     @Query(value = " update Pedidos set estado = 'cancelado' where id = ?1")
     void cancelarPedido(int parseInt);
 
+    @Transactional
+    @Modifying
+    @Query(value = " update Pedidos set estado = ?1 where id = ?2")
+    void updateEstadoPedido(String estado , int parseInt);
+
     @Query("select p from Pedidos p where p.estado = ?1")
     List<Pedidos> findByEstado(String estado);
 }

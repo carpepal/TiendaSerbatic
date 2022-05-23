@@ -1,6 +1,7 @@
 package com.example.tiendacarlos.principal.routes;
 
 import com.example.tiendacarlos.entities.Usuarios;
+import com.example.tiendacarlos.services.sql.clases.PedidoService;
 import com.example.tiendacarlos.services.sql.clases.ProductoService;
 import com.example.tiendacarlos.services.sql.clases.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,17 @@ public class AdminRoute {
 
     @Autowired
     private ProductoService productoService;
+
+    @Autowired
+    private PedidoService pedidoService;
+
     @GetMapping("/clientes/delete")
     public String delete(@RequestParam("id") int id, Model model, HttpSession session) {
         if (session.getAttribute("usuario") == null || !((Usuarios) session.getAttribute("usuario")).getRolesByIdRol().getRol().equals("admin")) {
             return "redirect:/";
         }
         usuarioService.deleteById(id);
-        return "redirect:/admin/clientes";
+        return "redirect:/emp/clientes";
     }
 
     @GetMapping("/producto/delete")
@@ -36,7 +41,16 @@ public class AdminRoute {
             return "redirect:/";
         }
         productoService.deleteById(id);
-        return "redirect:/admin/productos";
+        return "redirect:/emp/productos";
+    }
+
+    @GetMapping("/pedidos/delete")
+    public String deletePedido(@RequestParam("id") int id, Model model, HttpSession session) {
+        if (session.getAttribute("usuario") == null || !usuarioService.isAdmin((Usuarios) session.getAttribute("usuario"))) {
+            return "redirect:/";
+        }
+        pedidoService.delete(pedidoService.findById(id));
+        return "redirect:/emp/pedidos";
     }
 
     @GetMapping("/empleados")

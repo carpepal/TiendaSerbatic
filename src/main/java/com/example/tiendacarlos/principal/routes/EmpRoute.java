@@ -56,7 +56,7 @@ public class EmpRoute {
         }
         System.out.println(usuario);
         usuarioService.save(usuario);
-        return "redirect:/admin/clientes";
+        return "redirect:/emp/clientes";
     }
 
 
@@ -77,7 +77,7 @@ public class EmpRoute {
         return "admin/productos";
     }
 
-    @ExceptionHandler(IllegalAccessException.class)
+
     @PostMapping("/productos/edit")
     public String postproductos(@ModelAttribute Productos producto , Model model , HttpSession session) throws IllegalAccessException {
         if(session.getAttribute("usuario") == null || !(usuarioService.isAdmin((Usuarios)session.getAttribute("usuario")) || usuarioService.isEmp((Usuarios)session.getAttribute("usuario")))){
@@ -87,7 +87,7 @@ public class EmpRoute {
         Productos finalProduct = (Productos) GeneralUtils.merge(productoService.findById(producto.getId()), producto);
 
         productoService.save((Productos) GeneralUtils.merge(productoService.findById(producto.getId()), producto));
-        return "redirect:/admin/productos";
+        return "redirect:/emp/productos";
     }
 
     @GetMapping("/pedidos")
@@ -101,4 +101,16 @@ public class EmpRoute {
         model.addAttribute("pedidos", pedidos);
         return "admin/pedidos";
     }
+    @ExceptionHandler(IllegalAccessException.class)
+    @PostMapping("/pedidos/edit")
+    public String postpedidos(@ModelAttribute Pedidos pedido , Model model , HttpSession session) throws IllegalAccessException {
+        if(session.getAttribute("usuario") == null || !(usuarioService.isAdmin((Usuarios)session.getAttribute("usuario")) || usuarioService.isEmp((Usuarios)session.getAttribute("usuario")))){
+            return "redirect:/";
+        }
+        System.out.println(pedido);
+
+        pedidoService.save((Pedidos)GeneralUtils.merge(pedidoService.findById(pedido.getId()), pedido));
+        return "redirect:/emp/pedidos";
+    }
+
 }

@@ -12,16 +12,14 @@
         <h1>pedidos pendientes</h1>
         <hr>
         <div class="row">
-            <div class="col-md-2">estado</div>
-            <div class="col-md-2">fecha</div>
-            <div class="col-md-2">metodo de pago</div>
-            <div class="col-md-2"> total</div>
-            <div class="col-md-2">numero de factura</div>
+            <div class="col-md-3">estado</div>
+            <div class="col-md-3">metodo de pago</div>
+            <div class="col-md-3"> total</div>
         </div>
         <th:block th:each="pedido: ${pedidos}">
-            <form th:action="@{/admin/pedidos/edit}" method="post">
+            <form th:action="@{/emp/pedidos/edit}" th:method="POST">
                 <div class="row my-2">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="hidden" name="id" th:value="${pedido.id}">
                         <select name="estado">
                             <option value="pendiente" th:selected="${pedido.estado == 'pendiente'}">pendiente</option>
@@ -29,19 +27,13 @@
                             <option value="cancelado" th:selected="${pedido.estado == 'cancelado'}" th:disabled="${session?.usuario?.idRol!= 1}">cancelado</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <input type="text" name="fecha" th:value="${pedido.fecha}" class="form-control">
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="text" name="metodoPago" th:value="${pedido.metodoPago}" class="form-control">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="text" name="total" th:value="${pedido.total}" class="form-control">
                     </div>
-                    <div class="col-md-2">
-                        <input type="text" name="numFactura" th:value="${pedido.numFactura}" class="form-control">
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="hidden" name="id" th:value="${pedido.id}">
                         <input type="submit" value="editar" class="btn btn-primary">
                         <button th:if="${session?.usuario?.rolesByIdRol?.rol=='admin'}" data-th-attr="data-id=${pedido.id}" class="btn btn-danger" onclick="deletePedido(event)">eliminar</button>

@@ -16,4 +16,6 @@ public class CategoriaService {
         return (ArrayList<Categorias>) categoriaRepository.findAll();
     }
 
+
+
 }

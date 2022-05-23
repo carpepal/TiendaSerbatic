@@ -23,7 +23,7 @@
 
         </div>
         <th:block th:each="user: ${usuarios}">
-            <form class="row" th:action="@{/admin/clientes/edit}" th:method="POST">
+            <form class="row" th:action="@{/emp/clientes/edit}" th:method="POST">
                 <div class="col-md-2">
                     <input type="hidden" name="id" th:value="${user.id}">
                     <input type="hidden" name="clave" th:value="${user.clave}">

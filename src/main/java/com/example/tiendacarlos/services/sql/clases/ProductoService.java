@@ -37,4 +37,8 @@ public class ProductoService implements IProductoService {
     public void deleteById(int id) {
         productoRepository.deleteById(id);
     }
+
+    public ArrayList<Productos> findAllByCategoria(String categoria) {
+        return (ArrayList<Productos>) productoRepository.findAllByIdCategoria(Integer.parseInt(categoria));
+    }
 }

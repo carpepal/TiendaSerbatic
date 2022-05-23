@@ -38,7 +38,7 @@
             </ul>
         </div>
         <div th:if="${session.usuario!= null}">
-            <ul>
+            <ul class="d-flex flex-direction-column">
                 <li><img th:src="@{'/Usuarios/img/user-'+${session.usuario.id}+'.png'}"/></li>
                 <li><a th:href="@{/logout}" class="nav-link">Logout</a></li>
             </ul>

@@ -7,9 +7,16 @@
 </head>
 <body>
 <nav th:replace="components/navbar"></nav>
-<main>
-    <aside></aside>
-    <section>
+<main class="d-flex flex-direction-column ">
+    <aside class="px-2 ml-2 border-end sticky-top vh-100">
+        <h1>Categorias</h1>
+        <ul class="list-group">
+            <li th:each="categoria : ${categorias}" class="list-group-item">
+                <a th:href="@{'/productos?categoria='+${categoria.id}}" th:text="${categoria?.nombre}">${categoria.nome}</a>
+            </li>
+        </ul>
+    </aside>
+    <section class="w-100">
         <h1>Catalogo</h1>
         <hr>
         <div class="d-flex flex-row flex-wrap justify-content-center">

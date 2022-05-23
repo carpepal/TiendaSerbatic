@@ -19,7 +19,7 @@
             <div class="col-md-2">categoria</div>
         </div>
         <th:block th:each="producto: ${productos}">
-            <form class="row my-2" th:action="@{/admin/productos/edit}" th:method="POST">
+            <form class="row my-2" th:action="@{/emp/productos/edit}" th:method="POST">
                 <div class="col-md-2">
                     <input type="hidden" name="id" th:value="${producto.id}">
                     <input type="text" placeholder="nombre" name="nombre" th:value="${producto.nombre}">

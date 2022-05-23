@@ -2,9 +2,11 @@ package com.example.tiendacarlos.principal;
 
 import com.example.tiendacarlos.entities.Productos;
 import com.example.tiendacarlos.entities.Usuarios;
+import com.example.tiendacarlos.services.sql.clases.CategoriaService;
 import com.example.tiendacarlos.services.sql.clases.PedidoService;
 import com.example.tiendacarlos.services.sql.clases.ProductoService;
 import com.example.tiendacarlos.services.sql.clases.UsuarioService;
+import com.example.tiendacarlos.services.sql.interfaz.repository.CategoryRepository;
 import com.example.tiendacarlos.util.global_functions.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,15 +37,28 @@ public class Principal{
     @Autowired
     private ServletContext servletContext;
 
+    @Autowired
+    private CategoriaService categoriaService;
+
     @GetMapping("/")
     public String index(Model model , HttpSession session){
         String ruta = "index";
         ArrayList<Productos> list = productoService.findAll();
         model.addAttribute("list", list);
-//        System.out.println(pedidoService.findByCliente(5));
+        model.addAttribute("categorias", categoriaService.findAll());
         System.out.println(pedidoService.findAll());
         System.out.println(servletContext.getRealPath("/"));
         return ruta;
+    }
+
+    @GetMapping("/productos")
+    public String productos(@RequestParam(name="categoria") String categoria ,Model model , HttpSession session){
+        String ruta = "productos";
+        ArrayList<Productos> list = productoService.findAllByCategoria(categoria);
+        model.addAttribute("categorias", categoriaService.findAll());
+        model.addAttribute("list", list);
+        return "index";
+
     }
 
     @GetMapping("/login")
@@ -67,20 +82,11 @@ public class Principal{
         }
         Usuarios result = usuarioService.login(usuario);
         if(result != null){
-            //add user to session
             session.setAttribute("usuario", result);
-//            if(session.getAttribute("from") != null){
-//                String from = (String) session.getAttribute("from");
-//                session.removeAttribute("from");
-//                return "redirect:".concat(from);
-//            }
 
             if(usuarioService.isAdmin(result) || usuarioService.isEmp(result)){
                 return "redirect:/emp/clientes";
             }
-//            if(result.getRolesByIdRol().getRol().equals("emp")){
-//                return "redirect:/emp/clientes";
-//            }
             return "redirect:/";
         }
 
@@ -143,6 +149,12 @@ public class Principal{
         }
         model.addAttribute("usuario", session.getAttribute("usuario"));
         return "user";
+    }
+
+    @GetMapping("/error")
+    public String error(Model model){
+        model.addAttribute("error", "No se encontro la pagina");
+        return "error";
     }
 
 
