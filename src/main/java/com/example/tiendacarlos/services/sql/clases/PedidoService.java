@@ -18,7 +18,7 @@ public class PedidoService {
         return pedidoRepository.findById(id).get();
     }
 
-
+    @Transactional
     public Pedidos save(Pedidos pedido){
         return pedidoRepository.save(pedido);
     }
