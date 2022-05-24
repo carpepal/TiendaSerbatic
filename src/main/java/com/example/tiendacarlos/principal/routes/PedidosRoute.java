@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase que se encarga de manejar las rutas de los pedidos
+ */
 @Controller
 @RequestMapping("/pedidos")
 public class PedidosRoute {
@@ -19,6 +21,13 @@ public class PedidosRoute {
     @Autowired
     private PedidoService pedidoService;
 
+    /**
+     * Metodo que se encarga de cancelar un pedido
+     * @param id
+     * @param model
+     * @param session
+     * @return redireccion de pedidos
+     */
     @GetMapping("/cancelar/{id}")
     public String cancelarPedido(@PathVariable(required = true)String id, Model model , HttpSession session){
         if(SessionUtil.hasNotUserSession(session)){
@@ -28,6 +37,13 @@ public class PedidosRoute {
         return "redirect:/pedidos";
     }
 
+    /**
+     * Metodo que se encarga de ver un pedido
+     * @param id
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/{id}")
     public String verPedido(@PathVariable(required = true)String id, Model model , HttpSession session){
         if(SessionUtil.hasNotUserSession(session)){

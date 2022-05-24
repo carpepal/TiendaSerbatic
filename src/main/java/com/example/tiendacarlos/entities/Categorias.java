@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
+
+/**
+ * Clase que representa la entidad Categorias
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

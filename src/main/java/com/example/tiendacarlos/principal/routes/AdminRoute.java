@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase que representa la ruta de administración
+ */
 @RequestMapping("/admin")
 @Controller
 public class AdminRoute {
@@ -26,6 +29,13 @@ public class AdminRoute {
     @Autowired
     private PedidoService pedidoService;
 
+    /**
+     * Metodo que borra un cliente
+     * @param id
+     * @param model
+     * @param session
+     * @return redirecciona a la pagina de administracion de clientes
+     */
     @GetMapping("/clientes/delete")
     public String delete(@RequestParam("id") int id, Model model, HttpSession session) {
         if (session.getAttribute("usuario") == null || !((Usuarios) session.getAttribute("usuario")).getRolesByIdRol().getRol().equals("admin")) {
@@ -35,6 +45,13 @@ public class AdminRoute {
         return "redirect:/emp/clientes";
     }
 
+    /**
+     * Metodo que borra un producto
+     * @param id
+     * @param model
+     * @param session
+     * @return redirecciona a la pagina de administracion de productos
+     */
     @GetMapping("/producto/delete")
     public String deleteProducto(@RequestParam("id") int id, Model model, HttpSession session) {
         if (session.getAttribute("usuario") == null || !usuarioService.isAdmin((Usuarios) session.getAttribute("usuario"))) {
@@ -44,6 +61,13 @@ public class AdminRoute {
         return "redirect:/emp/productos";
     }
 
+    /**
+     * Metodo que borra un pedido
+     * @param id
+     * @param model
+     * @param session
+     * @return redirecciona a la pagina de administracion de pedidos
+     */
     @GetMapping("/pedidos/delete")
     public String deletePedido(@RequestParam("id") int id, Model model, HttpSession session) {
         if (session.getAttribute("usuario") == null || !usuarioService.isAdmin((Usuarios) session.getAttribute("usuario"))) {
@@ -53,6 +77,12 @@ public class AdminRoute {
         return "redirect:/emp/pedidos";
     }
 
+    /**
+     * Metodo que lista los empleados
+     * @param model
+     * @param session
+     * @return redirecciona a la pagina de administracion de empleados
+     */
     @GetMapping("/empleados")
     public String empleados(Model model, HttpSession session) {
         if (session.getAttribute("usuario") == null || !usuarioService.isAdmin((Usuarios) session.getAttribute("usuario"))) {

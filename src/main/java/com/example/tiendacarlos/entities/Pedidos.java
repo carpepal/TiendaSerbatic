@@ -10,6 +10,9 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Clase que representa un pedido
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

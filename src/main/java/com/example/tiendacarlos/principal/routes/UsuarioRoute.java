@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Clase que se encaga de las rutas de usuario
+ */
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioRoute {
@@ -19,11 +22,21 @@ public class UsuarioRoute {
     @Autowired
     private UsuarioService usuarioService;
 
+    /**
+     * Metodo que guardar los cambios de un usuario
+     * @param usuario
+     * @param model
+     * @param session
+     * @return
+     * @throws IllegalAccessException
+     */
     @ExceptionHandler(IllegalAccessException.class)
     @PostMapping("/guardar")
     public String guardar(Usuarios usuario, Model model  , HttpSession session) throws IllegalAccessException {
 
-
+        if(usuario.getId() != ((Usuarios)session.getAttribute("usuario")).getId()){
+            return "redirect:/usuario";
+        }
         usuarioService.save((Usuarios) GeneralUtils.merge(session.getAttribute("usuario") , usuario));
         System.out.println(usuario);
         return "redirect:/usuario";

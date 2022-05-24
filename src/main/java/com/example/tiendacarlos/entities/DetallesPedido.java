@@ -8,6 +8,9 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Clase que representa un detalle de pedido
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

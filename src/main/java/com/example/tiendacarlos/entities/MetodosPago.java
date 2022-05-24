@@ -5,6 +5,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
+
+/**
+ * Clase que representa un metodo de pago
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

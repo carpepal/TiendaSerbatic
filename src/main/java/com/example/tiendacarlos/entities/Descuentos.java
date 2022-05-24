@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+
+/**
+ * Clase que representa la tabla Descuentos
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

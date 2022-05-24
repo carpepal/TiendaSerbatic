@@ -20,6 +20,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 
+/**
+ * Clase que se encarga de manejar las peticiones de la vista principal
+ */
 @RequestMapping("/")
 @Controller
 public class Principal{
@@ -38,17 +41,27 @@ public class Principal{
     @Autowired
     private CategoriaService categoriaService;
 
+    /**
+     * Metodo que se encarga de manejar las peticiones de la vista principal
+     * @param model
+     * @param session
+     * @return la vista principal
+     */
     @GetMapping("/")
     public String index(Model model , HttpSession session){
         String ruta = "index";
         ArrayList<Productos> list = productoService.findAll();
         model.addAttribute("list", list);
         model.addAttribute("categorias", categoriaService.findAll());
-        System.out.println(pedidoService.findAll());
-        System.out.println(servletContext.getRealPath("/"));
         return ruta;
     }
 
+    /**
+     * Metodo que se encarga de manejar las peticiones de la vista principal de productos
+     * @param model
+     * @param session
+     * @return la vista principal
+     */
     @GetMapping("/productos")
     public String productos(@RequestParam(name="categoria") String categoria ,Model model , HttpSession session){
         String ruta = "productos";
@@ -59,6 +72,12 @@ public class Principal{
 
     }
 
+    /**
+     * Metodo que se encarga de manejar las peticiones de la vista de login
+     * @param model
+     * @param session
+     * @return la vista de login
+     */
     @GetMapping("/login")
     public String login(HttpServletRequest request , HttpSession session , Model model ){
         if(session.getAttribute("usuario") != null){
@@ -67,6 +86,15 @@ public class Principal{
         model.addAttribute("Usuario", new Usuarios());
         return "login";
     }
+
+    /**
+     * Metodo que se encarga de recoger los datos del formulario de login
+     * @param usuario
+     * @param bindingResult
+     * @param session
+     * @param model
+     * @return
+     */
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute  Usuarios usuario, BindingResult bindingResult , HttpSession session , Model model){
 
@@ -91,6 +119,13 @@ public class Principal{
         return "login";
     }
 
+    /**
+     * Metodo que se encarga de manejar las peticiones de la vista de registro
+     * @param model
+     * @param session
+     * @param request
+     * @return la vista de registro
+     */
     @GetMapping("/registro")
     public String registro(Model model , HttpSession session , HttpServletRequest request){
         if(session.getAttribute("usuario") != null){
@@ -99,6 +134,14 @@ public class Principal{
         model.addAttribute("usuario", new Usuarios());
         return "registro";
     }
+
+    /**
+     * Metodo que se encarga de recoger los datos del formulario de registro
+     * @param usuario
+     * @param model
+     * @param session
+     * @return la vista de registro
+     */
     @PostMapping(value = "/registro" , consumes = "application/x-www-form-urlencoded")
     public String registro(Usuarios usuario , Model model , HttpSession session){
         model.addAttribute("usuario", new Usuarios());
@@ -115,12 +158,23 @@ public class Principal{
         return "redirect:/";
     }
 
+    /**
+     * Metodo que se encarga de manejar las peticiones de la vista de logout
+     * @param session
+     * @return redireciona a la vista principal
+     */
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("usuario");
         return "redirect:/";
     }
 
+    /**
+     * Metodo que se encarga de manejar las peticiones de la vista de un producto en concretol
+     * @param id
+     * @param model
+     * @return la vista de un producto
+     */
     @GetMapping("/producto/{id}")
     public String producto(@PathVariable(required = true)String id, Model model){
         Productos producto = productoService.findById(Integer.parseInt(id));
@@ -128,6 +182,12 @@ public class Principal{
         return "producto";
     }
 
+    /**
+     * Metodo que se encarga de manejar las peticiones de la vista de pedidos
+     * @param model
+     * @param session
+     * @return la vista de pedidos
+     */
     @GetMapping("/pedidos")
     public String pedidos(Model model , HttpSession session) {
         if (SessionUtil.hasNotUserSession(session)){
@@ -139,7 +199,12 @@ public class Principal{
 
 
 
-
+    /**
+     * Metodo que se encarga de manejar las peticiones de la vista de el usuario
+     * @param model
+     * @param session
+     * @return la vista de usuario
+     */
     @GetMapping("/usuario")
     public String user(Model model , HttpSession session){
         if(SessionUtil.hasNotUserSession(session)){
@@ -149,6 +214,12 @@ public class Principal{
         return "user";
     }
 
+
+    /**
+     * vista general de errorres
+     * @param model
+     * @return
+     */
     @GetMapping("/error")
     public String error(Model model){
         model.addAttribute("error", "No se encontro la pagina");
@@ -156,9 +227,5 @@ public class Principal{
     }
 
 
-    @PostConstruct
-    public void init() {
 
-
-    }
 }

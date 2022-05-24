@@ -8,6 +8,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
+
+/**
+ * Clase que representa un producto
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

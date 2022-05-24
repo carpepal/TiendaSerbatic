@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
+/**
+ * Clase que contiene los servicios para el carrito de compras
+ */
 @Service
 public class CartServices {
 
@@ -21,6 +24,11 @@ public class CartServices {
     @Autowired
     private PedidoService pedidoService;
 
+    /**
+     * Metodo que agrega un producto al carrito de compras
+     * @param id
+     * @param session
+     */
     public void addProductToCart(String id  , HttpSession session ) {
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
         if(carrito.containsKey(Integer.parseInt(id))){
@@ -34,6 +42,11 @@ public class CartServices {
         calcularTotal(session);
     }
 
+    /**
+     * Metodo que elimina un producto del carrito de compras
+     * @param id
+     * @param session
+     */
     public void removeProductFromCart(String id , HttpSession session ) {
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
         if(carrito.containsKey(Integer.parseInt(id))){
@@ -45,18 +58,31 @@ public class CartServices {
         calcularTotal(session);
     }
 
+    /**
+     * metodo que borra un producto del carrito
+     * @param id
+     * @param session
+     */
     public void deleteProductFromCart(String id , HttpSession session) {
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
         carrito.remove(Integer.parseInt(id));
         calcularTotal(session);
     }
 
+    /**
+     * metodo que limpia el carrito de compras
+     * @param session
+     */
     public void clearCart(HttpSession session) {
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
         carrito.clear();
         calcularTotal(session);
     }
 
+    /**
+     * metodo que calcula el total del carrito
+     * @param session
+     */
     public void calcularTotal(HttpSession session){
         Double total = 0.0;
         HashMap<Integer, Productos> carrito = (HashMap<Integer, Productos>) session.getAttribute("carrito");
@@ -66,6 +92,10 @@ public class CartServices {
         session.setAttribute("total", total);
     }
 
+    /**
+     * metodo que crea un pedido
+     * @param session
+     */
     public Pedidos buyProducts(HttpSession session  , String metodo) {
         Pedidos pedido = new Pedidos(0 , (Usuarios) session.getAttribute("usuario") ,metodo,"Pendiente" , "1" , 100);
         pedido.setIdUsuario(((Usuarios) session.getAttribute("usuario")).getId());

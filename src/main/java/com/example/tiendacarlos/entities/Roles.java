@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
+
+/**
+ * Clase que representa un rol en la base de datos
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

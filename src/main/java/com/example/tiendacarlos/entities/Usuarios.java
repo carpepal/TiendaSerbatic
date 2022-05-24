@@ -11,6 +11,9 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Clase que representa la entidad Usuarios
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

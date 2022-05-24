@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
+/**
+ * Clase que se encarga de manejar las peticiones de la vista de carrito
+ */
 @RequestMapping("/carrito")
 @Controller
 public class CarritoRoute {
@@ -28,6 +31,12 @@ public class CarritoRoute {
     @Autowired
     private CartServices cart = new CartServices();
 
+    /**
+     * Metodo que se encarga de redirigir a la vista de carrito
+     * @param model
+     * @param session
+     * @return vista de carrito
+     */
     @GetMapping("")
     public String carrito(Model model , HttpSession session){
         if(session.getAttribute("carrito") == null){
@@ -37,6 +46,15 @@ public class CarritoRoute {
         return "carrito";
     }
 
+    /**
+     * Metodo que se encarga de añadir o quitar 1 producto o eliminar un producto del carrito
+     * @param id
+     * @param action
+     * @param model
+     * @param session
+     * @param request
+     * @return vista de carrito
+     */
     @GetMapping("/{id}")
     public String carrito(@PathVariable(required = true)String id, @RequestParam(required = true)String action, Model model , HttpSession session , HttpServletRequest request){
         if(session.getAttribute("carrito" ) == null){
@@ -59,6 +77,13 @@ public class CarritoRoute {
         return "redirect:"+ruta;
     }
 
+    /**
+     * metodo que realiza la compra del carrito si estas logeado
+     * @param metodo
+     * @param model
+     * @param session
+     * @return vista de factura
+     */
     @PostMapping("/comprar")
     public String comprar(@Param(value = "metodo") String metodo , Model model , HttpSession session){
         if(session.getAttribute("usuario") == null){

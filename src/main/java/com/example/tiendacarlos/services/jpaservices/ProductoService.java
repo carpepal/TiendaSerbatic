@@ -15,26 +15,44 @@ public class ProductoService  {
     ProductoRepository productoRepository;
 
 
-
-//    @Override
-//    public Productos findByName(String name) {
-//        return productoRepository.findByNombre(name);
-//    }
+    /**
+     * Metodo que busca un producto por su id
+     * @param id
+     * @return
+     */
     public Productos findById(int id){
         return productoRepository.findById(id).get();
     }
+
+    /**
+     * Metodo que busca todos los productos
+     * @return
+     */
     public ArrayList<Productos> findAll(){
         return (ArrayList<Productos>) productoRepository.findAll();
     }
 
+    /**
+     * metodo para guardar un producto
+     * @param producto
+     */
     public void save(Productos producto) {
         productoRepository.save(producto);
     }
 
+    /**
+     * metodo para borrar un producto por su id
+     * @param id
+     */
     public void deleteById(int id) {
         productoRepository.deleteById(id);
     }
 
+    /**
+     * metodo para recoger todos los productos de una categoria
+     * @param categoria
+     * @return
+     */
     public ArrayList<Productos> findAllByCategoria(String categoria) {
         return (ArrayList<Productos>) productoRepository.findAllByIdCategoria(Integer.parseInt(categoria));
     }
