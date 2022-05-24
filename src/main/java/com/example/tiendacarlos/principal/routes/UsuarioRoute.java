@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,13 +33,14 @@ public class UsuarioRoute {
      */
     @ExceptionHandler(IllegalAccessException.class)
     @PostMapping("/guardar")
-    public String guardar(Usuarios usuario, Model model  , HttpSession session) throws IllegalAccessException {
+    public String guardar(@ModelAttribute Usuarios usuario, Model model  , HttpSession session) throws IllegalAccessException {
 
         if(usuario.getId() != ((Usuarios)session.getAttribute("usuario")).getId()){
             return "redirect:/usuario";
         }
-        usuarioService.save((Usuarios) GeneralUtils.merge(session.getAttribute("usuario") , usuario));
+        Usuarios newUser = usuarioService.save((Usuarios)GeneralUtils.merge(usuarioService.findById(((Usuarios) session.getAttribute("usuario")).getId()) , usuario));
         System.out.println(usuario);
+        session.setAttribute("usuario",newUser);
         return "redirect:/usuario";
     }
 

@@ -33,7 +33,7 @@ public class Usuarios {
     @Basic
     @NotBlank
     @NotNull(message = "El campo contraseña no puede estar vacio")
-    @Size(min = 1 , max = 32 , message = "La contraseña debe tener entre 8 y 32 caracteres")
+    @Size(min = 1 , max = 70 , message = "La contraseña debe tener entre 1 y 32 caracteres")
     @Column(name = "clave")
     private String clave;
     @Basic
