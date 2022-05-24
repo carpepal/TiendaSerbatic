@@ -1,7 +1,7 @@
-package com.example.tiendacarlos.services.sql.clases;
+package com.example.tiendacarlos.services.jpaservices;
 
 import com.example.tiendacarlos.entities.DetallesPedido;
-import com.example.tiendacarlos.services.sql.interfaz.repository.DetallePedidoRepository;
+import com.example.tiendacarlos.repository.DetallePedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

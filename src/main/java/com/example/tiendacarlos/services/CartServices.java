@@ -4,14 +4,12 @@ import com.example.tiendacarlos.entities.DetallesPedido;
 import com.example.tiendacarlos.entities.Pedidos;
 import com.example.tiendacarlos.entities.Productos;
 import com.example.tiendacarlos.entities.Usuarios;
-import com.example.tiendacarlos.services.sql.clases.PedidoService;
-import com.example.tiendacarlos.services.sql.clases.ProductoService;
+import com.example.tiendacarlos.services.jpaservices.PedidoService;
+import com.example.tiendacarlos.services.jpaservices.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
 import java.util.*;
 
 @Service

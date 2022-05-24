@@ -1,8 +1,6 @@
 package com.example.tiendacarlos.util.global_functions;
 
-import com.example.tiendacarlos.entities.Pedidos;
 import com.example.tiendacarlos.entities.Usuarios;
-import com.example.tiendacarlos.services.sql.clases.UsuarioService;
 
 import javax.servlet.http.HttpSession;
 

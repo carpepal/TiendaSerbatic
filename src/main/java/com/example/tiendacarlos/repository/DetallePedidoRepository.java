@@ -1,4 +1,4 @@
-package com.example.tiendacarlos.services.sql.interfaz.repository;
+package com.example.tiendacarlos.repository;
 
 import com.example.tiendacarlos.entities.DetallesPedido;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,11 +2,10 @@ package com.example.tiendacarlos.principal;
 
 import com.example.tiendacarlos.entities.Productos;
 import com.example.tiendacarlos.entities.Usuarios;
-import com.example.tiendacarlos.services.sql.clases.CategoriaService;
-import com.example.tiendacarlos.services.sql.clases.PedidoService;
-import com.example.tiendacarlos.services.sql.clases.ProductoService;
-import com.example.tiendacarlos.services.sql.clases.UsuarioService;
-import com.example.tiendacarlos.services.sql.interfaz.repository.CategoryRepository;
+import com.example.tiendacarlos.services.jpaservices.CategoriaService;
+import com.example.tiendacarlos.services.jpaservices.PedidoService;
+import com.example.tiendacarlos.services.jpaservices.ProductoService;
+import com.example.tiendacarlos.services.jpaservices.UsuarioService;
 import com.example.tiendacarlos.util.global_functions.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @RequestMapping("/")
 @Controller

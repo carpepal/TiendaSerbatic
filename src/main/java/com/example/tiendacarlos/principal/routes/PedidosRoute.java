@@ -1,7 +1,7 @@
 package com.example.tiendacarlos.principal.routes;
 
 import com.example.tiendacarlos.entities.Pedidos;
-import com.example.tiendacarlos.services.sql.clases.PedidoService;
+import com.example.tiendacarlos.services.jpaservices.PedidoService;
 import com.example.tiendacarlos.util.global_functions.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

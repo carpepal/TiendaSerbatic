@@ -1,9 +1,9 @@
 package com.example.tiendacarlos.principal.routes;
 
 import com.example.tiendacarlos.entities.Usuarios;
-import com.example.tiendacarlos.services.sql.clases.PedidoService;
-import com.example.tiendacarlos.services.sql.clases.ProductoService;
-import com.example.tiendacarlos.services.sql.clases.UsuarioService;
+import com.example.tiendacarlos.services.jpaservices.PedidoService;
+import com.example.tiendacarlos.services.jpaservices.ProductoService;
+import com.example.tiendacarlos.services.jpaservices.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
