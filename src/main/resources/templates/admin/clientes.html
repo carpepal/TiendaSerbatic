@@ -1,0 +1,63 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clientes</title>
+    <th:block th:replace="components/imports"/>
+</head>
+<body>
+<th:block th:replace="components/navbar "/>
+<main>
+    <h1>Clientes</h1>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">email</div>
+            <div class="col-md-2">nombre</div>
+            <div class="col-md-2">apellido 1</div>
+            <div class="col-md-2">apellido 2</div>
+            <div class="col-md-2">telefono</div>
+            <div class="col-md-2">dni</div>
+
+        </div>
+        <th:block th:each="user: ${usuarios}">
+            <form class="row" th:action="@{/emp/clientes/edit}" th:method="POST">
+                <div class="col-md-2">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <input type="hidden" name="clave" th:value="${user.clave}">
+                    <input type="hidden" name="idRol" th:value="${user.idRol}">
+                    <input type="text" placeholder="email" name="email" th:value="${user.email}">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="nombre" name="nombre" th:value="${user.nombre}">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="apellido 1" name="apellido1"
+                                             th:value="${user.apellido1}">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="apellido 2" name="apellido2"
+                                             th:value="${user.apellido2}">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="telefono" name="telefono"
+                                             th:value="${user.telefono}">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" placeholder="dni" name="dni" th:value="${user.dni}">
+                </div>
+                <div class="col-md-2 p-2">
+                    <input class="btn btn-primary" type="submit" value="modificar">
+                    <button th:if="${session?.usuario?.rolesByIdRol?.rol=='admin'}" data-th-attr="data-id=${user.id}" class="btn btn-danger" onclick="deleteUser(event)">eliminar</button>
+                </div>
+            </form>
+
+        </th:block>
+    </div>
+</main>
+<aside></aside>
+
+</body>
+</html>

@@ -18,7 +18,7 @@
             <p th:text="${producto.stock}">descripcion</p>
             <div class="d-flex flex-row mb-2 justify-content-center">
                 <a class="btn btn-primary"
-                   th:href="@{|/Carrito/${producto.id}?action=sumar|}">+</a>
+                   th:href="@{|/carrito/${producto.id}?action=sumar|}">+</a>
 
                 <div class="p-2 flex align-items-center"
                      th:text="${(session?.carrito?.get(producto?.id)?.cantidad == null)?0:session.carrito.get(producto.id).cantidad}">
@@ -26,12 +26,12 @@
                 </div>
 
                 <a class="btn btn-primary"
-                   th:href="@{|/Carrito/${producto.id}?action=restar|}">-</a>
+                   th:href="@{|/carrito/${producto.id}?action=restar|}">-</a>
 
             </div>
             <div class="d-flex justify-content-center">
                 <a class="btn btn-danger"
-                   th:href="@{|/Carrito/${producto.id}?action=borrar|}">borrar
+                   th:href="@{|/carrito/${producto.id}?action=borrar|}">borrar
                     del carrito</a>
             </div>
         </div>

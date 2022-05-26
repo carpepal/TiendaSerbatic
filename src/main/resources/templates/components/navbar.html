@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Carlos A.Pellico</a>
+    <a class="navbar-brand" href="/">Carlos A.Pellico</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,13 +7,28 @@
     <div class="collapse navbar-collapse justify-content-between" id="navbarsExample03">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Carrito">carrito</a>
+            <li class="nav-item"  th:unless="${session?.usuario?.idRol == 18 || session?.usuario?.idRol==1}">
+                <a class="nav-link" href="/carrito">Carrito</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Pedidos">pedidos</a>
+            <li class="nav-item" th:unless="${session?.usuario?.idRol == 18 || session?.usuario?.idRol==1}">
+                <a class="nav-link" href="/pedidos">Pedidos</a>
+            </li>
+            <li class="nav-item" th:if="${session.usuario}">
+                <a class="nav-link" href="/usuario">Perfil</a>
+            </li>
+            <li class="nav-item" th:if="${session?.usuario?.idRol == 18 || session?.usuario?.idRol==1}">
+                <a class="nav-link" href="/emp/clientes"> clientes</a>
+            </li>
+            <li class="nav-item" th:if="${session?.usuario?.idRol == 18 || session?.usuario?.idRol==1}">
+                <a class="nav-link" href="/emp/productos"> Productos</a>
+            </li>
+            <li class="nav-item" th:if="${session?.usuario?.idRol == 18 || session?.usuario?.idRol==1}">
+                <a class="nav-link" href="/emp/pedidos">Pedidos</a>
+            </li>
+            <li class="nav-item" th:if="${ session?.usuario?.idRol==1}">
+                <a class="nav-link" href="/admin/empleados">empleados</a>
             </li>
         </ul>
         <div th:unless="${session.usuario !=  null}">
@@ -23,7 +38,7 @@
             </ul>
         </div>
         <div th:if="${session.usuario!= null}">
-            <ul>
+            <ul class="d-flex flex-direction-column">
                 <li><img th:src="@{'/Usuarios/img/user-'+${session.usuario.id}+'.png'}"/></li>
                 <li><a th:href="@{/logout}" class="nav-link">Logout</a></li>
             </ul>

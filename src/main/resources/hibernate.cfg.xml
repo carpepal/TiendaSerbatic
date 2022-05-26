@@ -4,23 +4,26 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost/tienda_curso?zeroDateTimeBehavior=convertToNull</property>
+    <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
+    <property name="connection.url">jdbc:mariadb://localhost:3306</property>
     <property name="connection.username">root</property>
-    <property name="connection.password"></property>
     <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
     <property name="hibernate.show_sql">true</property>
 
-    <mapping class="com.example.tiendacarlos.models.configuracion.ConfigVo"/>
-    <mapping class="com.example.tiendacarlos.models.productos.ProductoVO"/>
-    <mapping class="com.example.tiendacarlos.models.usuarios.UsuarioVO"/>
-    <mapping class="com.example.tiendacarlos.models.menu.OpcionesMenuVO"/>
-    <mapping class="com.example.tiendacarlos.models.rol.RolVO"/>
-    <mapping class="com.example.tiendacarlos.models.pedido.PedidoVO"/>
-    <mapping class="com.example.tiendacarlos.models.detalle_pedido.DetallesPedidosVO"/>
-    <mapping class="com.example.tiendacarlos.models.categoria.CategoriaVO"/>
-    <mapping class="com.example.tiendacarlos.models.descuento.DescuentoVO"/>
 
+    <mapping class="com.example.tiendacarlos.entities.Categorias"/>
+    <mapping class="com.example.tiendacarlos.entities.Configuracion"/>
+    <mapping class="com.example.tiendacarlos.entities.Descuentos"/>
+    <mapping class="com.example.tiendacarlos.entities.DetallesPedido"/>
+    <mapping class="com.example.tiendacarlos.entities.Impuestos"/>
+    <mapping class="com.example.tiendacarlos.entities.MetodosPago"/>
+    <mapping class="com.example.tiendacarlos.entities.OpcionesMenu"/>
+    <mapping class="com.example.tiendacarlos.entities.Pedidos"/>
+    <mapping class="com.example.tiendacarlos.entities.Productos"/>
+    <mapping class="com.example.tiendacarlos.entities.Proveedores"/>
+    <mapping class="com.example.tiendacarlos.entities.Roles"/>
+    <mapping class="com.example.tiendacarlos.entities.Usuarios"/>
+    <mapping class="com.example.tiendacarlos.entities.Valoraciones"/>
 
 
   </session-factory>

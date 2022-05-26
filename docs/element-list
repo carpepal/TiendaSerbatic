@@ -1,0 +1,9 @@
+com.example.tiendacarlos
+com.example.tiendacarlos.entities
+com.example.tiendacarlos.principal
+com.example.tiendacarlos.principal.routes
+com.example.tiendacarlos.repository
+com.example.tiendacarlos.services
+com.example.tiendacarlos.services.jpaservices
+com.example.tiendacarlos.util
+com.example.tiendacarlos.util.global_functions

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos</title>
+    <link th:replace="components/imports"/>
+</head>
+<body>
+<div th:replace="components/navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Pedidos</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>N factura</th>
+                    <th>fecha</th>
+                    <th>metodo de pago</th>
+                    <th>estado</th>
+                    <th>total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pedido : ${pedidos}" onclick="showPedido(event)" data-th-attr="data-id=${pedido?.id}">
+                    <td th:text="${pedido?.numFactura}">${pedido.numFactura}</td>
+                    <td th:text="${pedido?.fecha}">${pedido.fecha}</td>
+                    <td th:text="${pedido?.metodoPago}">${pedido.metodoPago}</td>
+                    <td th:text="${pedido?.estado}">${pedido.estado}</td>
+                    <td th:text="${pedido?.total}">${pedido.total}</td>
+                    <td>
+                        <button data-th-attr="data-id=${pedido?.id}" onclick="cancelarPedido(event)">cancelar</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="components/footer"></div>
+</body>
+</html>
